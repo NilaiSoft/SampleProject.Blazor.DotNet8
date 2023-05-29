@@ -1,6 +1,6 @@
 ﻿namespace SampleProject.Server.VModels
 {
-    public partial record BaseEntityModel : BaseModel
+    public partial class BaseEntityModel : BaseModel
     {
         /// <summary>
         /// Gets or sets model identifier

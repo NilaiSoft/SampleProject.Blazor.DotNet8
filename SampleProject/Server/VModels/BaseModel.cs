@@ -1,6 +1,7 @@
 ﻿namespace SampleProject.Server.VModels
 {
-    public partial record BaseModel
+    public partial class BaseModel
     {
+        public int Id { get; set; }
     }
 }

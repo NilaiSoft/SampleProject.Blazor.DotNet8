@@ -1,6 +1,6 @@
 ﻿namespace SampleProject.Server.VModels
 {
-    public class ProductModel
+    public class ProductModel: BaseModel
     {
         public ProductModel()
         {
