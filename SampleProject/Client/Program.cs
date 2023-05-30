@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 using SampleProject.Client;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -14,5 +15,6 @@ builder.Services.AddHttpClient("SampleProject.ServerAPI", client => client.BaseA
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("SampleProject.ServerAPI"));
 
 builder.Services.AddApiAuthorization();
+builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
