@@ -6,6 +6,8 @@ namespace SampleProject.Client.Pages
     public partial class Product_Index
     {
         private IList<ProductDto>? productDtos;
+        private bool _hidePosition;
+        private bool _loading;
 
         protected override async Task OnInitializedAsync()
         {

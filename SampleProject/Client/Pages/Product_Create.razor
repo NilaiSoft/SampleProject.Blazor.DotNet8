@@ -6,19 +6,19 @@
 
 <EditForm Model="@productVM" OnValidSubmit="Create" class="card card-body bg-light">
     <div class="mb-3 col-xl-5">
-        <InputText id="@nameof(productVM.Name)" @bind-Value="productVM.Name" class="form-control" />
+        <MudTextField @bind-Value="productVM.Name" Label="@productVM.Name" Variant="Variant.Outlined"></MudTextField>
     </div>
     <div class="mb-3 col-xl-5">
-        <input type="text" id="@nameof(productVM.ShortDescription)" @bind-value="@productVM.ShortDescription" class="form-control" />
+        <MudTextField @bind-Value="productVM.ShortDescription" Label="@productVM.ShortDescription" Variant="Variant.Outlined"></MudTextField>
     </div>
     <div class="mb-3 col-xl-5">
-        <input type="text" id="@nameof(productVM.FullDescription)" @bind-value="@productVM.FullDescription" class="form-control" />
+        <MudTextField @bind-Value="productVM.FullDescription" Label="@productVM.FullDescription" Variant="Variant.Outlined"></MudTextField>
     </div>
     <div class="mb-3 col-xl-5">
-        <input type="text" id="@nameof(productVM.AdminComment)" @bind-value="@productVM.AdminComment" class="form-control" />
+        <MudTextField @bind-Value="productVM.AdminComment" Label="@productVM.AdminComment" Variant="Variant.Outlined"></MudTextField>
     </div>
     <div class="mb-3 col-xl-5">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <MudButton ButtonType=ButtonType.Submit Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" IconColor="Color.Info" Size="Size.Large">Save</MudButton>
     </div>
 </EditForm>
 
