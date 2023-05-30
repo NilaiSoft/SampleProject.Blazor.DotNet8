@@ -7,41 +7,20 @@
     </NavLink>
 </div>
 
-@if (productDtos == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>ShortDescription</th>
-                <th>FullDescription</th>
-                <th>AdminComment</th>
-                <th>ShowOnHomepage</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var productDto in productDtos)
-            {
-                <tr>
-                    <td>@productDto.Name</td>
-                    <td>@productDto.ShortDescription</td>
-                    <td>@productDto.FullDescription</td>
-                    <td>@productDto.AdminComment</td>
-                    <td>@productDto.ShowOnHomepage</td>
-                    <td>
-                        <a class="btn btn-secondary" href="/Product_Edit/@productDto.Id" role="button">Edit</a>
-                        <button type="button" @onclick="(async() =>await Delete(productDto.Id))" class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-
-
-
+<MatTable Items="@productDtos"
+          class="mat-elevation-z5"
+          OnRowDbClick="OnPersonDbClicked"
+          AllowSelection="true">
+    <MatTableHeader>
+        <th>Id</th>
+        <th>Name</th>
+        <th>ShortDescription</th>
+        <th>FullDescription</th>
+    </MatTableHeader>
+    <MatTableRow>
+        <td>@context.Id</td>
+        <td>@context.Name</td>
+        <td>@context.ShortDescription</td>
+        <td>@context.FullDescription</td>
+    </MatTableRow>
+</MatTable>

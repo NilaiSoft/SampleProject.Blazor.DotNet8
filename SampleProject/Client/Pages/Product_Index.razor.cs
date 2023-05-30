@@ -1,4 +1,5 @@
 using SampleProjects.Shared.Dtos;
+using System;
 using System.Net.Http.Json;
 
 namespace SampleProject.Client.Pages
@@ -19,6 +20,18 @@ namespace SampleProject.Client.Pages
             {
                 productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
             }
+        }
+
+        void OnPersonDbClicked(object item)
+        {
+            //var person = item as Person;
+            //if (person == null)
+            //{
+            //    _currentSelectedPerson = "noone";
+            //    return;
+            //}
+
+            //_currentSelectedPerson = $"{person.Firstname} {person.Lastname}";
         }
     }
 }

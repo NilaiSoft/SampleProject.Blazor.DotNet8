@@ -1,3 +1,4 @@
+using MatBlazor;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -29,6 +30,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddMatBlazor();
 
 builder.Services.AddIdentityServer()
     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
