@@ -20,7 +20,7 @@ namespace SampleProject.Client.Pages
             productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var result = await _httpClient.DeleteAsync($"api/Product/Delete/{id}");
             if (result.IsSuccessStatusCode)
