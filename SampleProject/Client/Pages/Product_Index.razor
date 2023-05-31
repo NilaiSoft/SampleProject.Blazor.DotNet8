@@ -18,7 +18,7 @@ else
 
     <MudDataGrid T="ProductDto" Items="@productDtos" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
                  StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
-                 Bordered="true" Dense="true" EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)">
+                 Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
         <Columns>
             <PropertyColumn Property="x => x.Name" Title="Nr" IsEditable="false" />
             <PropertyColumn Property="x => x.ShortDescription" />

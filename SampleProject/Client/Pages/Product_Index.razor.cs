@@ -1,4 +1,5 @@
 using SampleProjects.Shared.Dtos;
+using SampleProjects.Shared.ViewModels.Product;
 using System.Net.Http.Json;
 
 namespace SampleProject.Client.Pages
@@ -38,9 +39,12 @@ namespace SampleProject.Client.Pages
             _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
         }
 
-        void CommittedItemChanges(ProductDto item)
+        async void CommittedItemChanges(ProductDto item)
         {
-            _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+            var responce = await _httpClient.PostAsJsonAsync("api/Product/Edit", item);
+            if (responce.IsSuccessStatusCode)
+                _navigationManager.NavigateTo("Product_Index");
+            //_events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
         }
     }
 }
