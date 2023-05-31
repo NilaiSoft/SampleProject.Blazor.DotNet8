@@ -1,3 +1,4 @@
+using MudBlazor;
 using SampleProjects.Shared.Dtos;
 using SampleProjects.Shared.ViewModels.Product;
 using System.Net.Http.Json;
@@ -22,10 +23,18 @@ namespace SampleProject.Client.Pages
 
         public async Task DeleteAsync(int id)
         {
-            var result = await _httpClient.DeleteAsync($"api/Product/Delete/{id}");
-            if (result.IsSuccessStatusCode)
+            bool? dialogResult = await _dialogService.ShowMessageBox(
+                "Delete Confirmation",
+                "Deleting can not be undone!",
+                yesText: "Delete!", cancelText: "Cancel");
+
+            if (dialogResult ?? false)
             {
-                productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
+                var result = await _httpClient.DeleteAsync($"api/Product/Delete/{id}");
+                if (result.IsSuccessStatusCode)
+                {
+                    productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
+                }
             }
         }
 
