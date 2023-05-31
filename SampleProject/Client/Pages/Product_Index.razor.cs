@@ -26,7 +26,8 @@ namespace SampleProject.Client.Pages
             bool? dialogResult = await _dialogService.ShowMessageBox(
                 "Delete Confirmation",
                 "Deleting can not be undone!",
-                yesText: "Delete!", cancelText: "Cancel");
+                yesText: "Delete!", noText: "Cancel", cancelText: "",
+                new DialogOptions { FullWidth = true });
 
             if (dialogResult ?? false)
             {
