@@ -9,6 +9,7 @@
             FullDescription = string.Empty;
             AdminComment = string.Empty;
             ShowOnHomepage = true;
+            Enable = true;
             Deleted = false;
         }
 
@@ -34,6 +35,10 @@
         /// </summary>
         public bool ShowOnHomepage { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Enable { get; set; }
         /// <summary>
         /// 
         /// </summary>

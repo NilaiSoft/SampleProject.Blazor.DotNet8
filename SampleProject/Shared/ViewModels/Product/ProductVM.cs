@@ -18,6 +18,7 @@
         public string FullDescription { get; set; }
         public string AdminComment { get; set; }
         public bool ShowOnHomepage { get; set; }
+        public bool Enable { get; set; }
         public bool Deleted { get; set; }
     }
 }

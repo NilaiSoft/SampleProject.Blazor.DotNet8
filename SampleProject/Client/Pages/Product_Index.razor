@@ -22,19 +22,24 @@ else
                  StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
                  Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
         <Columns>
-            <PropertyColumn Property="x => x.Name" Title="Nr" IsEditable="false" />
+            <PropertyColumn Property="x => x.Name" />
             <PropertyColumn Property="x => x.ShortDescription" />
             <PropertyColumn Property="x => x.FullDescription" />
-            <PropertyColumn Property="x => x.AdminComment">
+            <PropertyColumn Property="x => x.AdminComment" />
+            @*             <PropertyColumn Property="x => x.AdminComment">
+        <EditTemplate>
+        <MudSelect @bind-Value="context.Item.Id" Required RequiredError="You must select a Position!!!" Margin="@Margin.Dense">
+        <MudSelectItem Value="0">zero</MudSelectItem>
+        <MudSelectItem Value="1">one</MudSelectItem>
+        <MudSelectItem Value="17">seventeen</MudSelectItem>
+        </MudSelect>
+        </EditTemplate>
+        </PropertyColumn> *@
+            <PropertyColumn Property="x => x.Enable">
                 <EditTemplate>
-                    <MudSelect @bind-Value="context.Item.Id" Required RequiredError="You must select a Position!!!" Margin="@Margin.Dense">
-                        <MudSelectItem Value="0">zero</MudSelectItem>
-                        <MudSelectItem Value="1">one</MudSelectItem>
-                        <MudSelectItem Value="17">seventeen</MudSelectItem>
-                    </MudSelect>
+                    <MudSwitch @bind-Checked="@context.Item.Enable" Color="Color.Primary"></MudSwitch>
                 </EditTemplate>
             </PropertyColumn>
-            <PropertyColumn Property="x => x.Name" Title="Molar mass" />
             <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
                 <CellTemplate>
                     <MudIconButton Variant=Variant.Filled Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
@@ -43,18 +48,6 @@ else
             </TemplateColumn>
         </Columns>
     </MudDataGrid>
-
-    <div class="d-flex flex-wrap mt-4">
-        <MudSwitch @bind-Checked="@_readOnly" Color="Color.Primary">Read Only</MudSwitch>
-        <div class="d-flex justify-start align-center">
-            <p class="mud-typography mud-typography-body1 mud-inherit-text mr-2">Form</p>
-            <MudSwitch @bind-Checked="@_isCellEditMode">Cell</MudSwitch>
-        </div>
-        <div class="d-flex justify-start align-center">
-            <p class="mud-typography mud-typography-body1 mud-inherit-text mr-2">Manual</p>
-            <MudSwitch @bind-Checked="@_editTriggerRowClick">On Row Click</MudSwitch>
-        </div>
-    </div>
 }
 
 

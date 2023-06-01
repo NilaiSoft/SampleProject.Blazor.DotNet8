@@ -15,6 +15,7 @@ namespace SampleProjects.Shared.Dtos
             FullDescription = string.Empty;
             AdminComment = string.Empty;
             ShowOnHomepage = true;
+            Enable = true;
             Deleted = false;
         }
         public int Id { get; set; }
@@ -23,6 +24,7 @@ namespace SampleProjects.Shared.Dtos
         public string FullDescription { get; set; }
         public string AdminComment { get; set; }
         public bool ShowOnHomepage { get; set; }
+        public bool Enable { get; set; }
         public bool Deleted { get; set; }
     }
 }

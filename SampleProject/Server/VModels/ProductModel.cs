@@ -1,6 +1,6 @@
 ﻿namespace SampleProject.Server.VModels
 {
-    public class ProductModel: BaseModel
+    public class ProductModel : BaseModel
     {
         public ProductModel()
         {
@@ -9,6 +9,7 @@
             FullDescription = string.Empty;
             AdminComment = string.Empty;
             ShowOnHomepage = true;
+            Enable = true;
             Deleted = false;
         }
 
@@ -17,6 +18,7 @@
         public string FullDescription { get; set; }
         public string AdminComment { get; set; }
         public bool ShowOnHomepage { get; set; }
+        public bool Enable { get; set; }
         public bool Deleted { get; set; }
     }
 }
