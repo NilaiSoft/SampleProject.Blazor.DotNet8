@@ -19,7 +19,7 @@ else
     @inject HttpClient httpClient
 
     <MudDataGrid T="ProductDto" Items="@productDtos" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
-                 StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
+                 StartedEditingItem="@StartedEditingItem" SortMode="SortMode.Multiple" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
                  Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
         <Columns>
             <PropertyColumn Property="x => x.Name" />
