@@ -26,15 +26,6 @@ else
             <PropertyColumn Property="x => x.ShortDescription" />
             <PropertyColumn Property="x => x.FullDescription" />
             <PropertyColumn Property="x => x.AdminComment" />
-            @*             <PropertyColumn Property="x => x.AdminComment">
-        <EditTemplate>
-        <MudSelect @bind-Value="context.Item.Id" Required RequiredError="You must select a Position!!!" Margin="@Margin.Dense">
-        <MudSelectItem Value="0">zero</MudSelectItem>
-        <MudSelectItem Value="1">one</MudSelectItem>
-        <MudSelectItem Value="17">seventeen</MudSelectItem>
-        </MudSelect>
-        </EditTemplate>
-        </PropertyColumn> *@
             <PropertyColumn Property="x => x.Enable">
                 <EditTemplate>
                     <MudSwitch @bind-Checked="@context.Item.Enable" Color="Color.Primary"></MudSwitch>
@@ -47,6 +38,9 @@ else
                 </CellTemplate>
             </TemplateColumn>
         </Columns>
+        <PagerContent>
+            <MudDataGridPager T="ProductDto" />
+        </PagerContent>
     </MudDataGrid>
 }
 
