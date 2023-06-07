@@ -18,7 +18,8 @@ namespace SampleProject.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
+            //productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index/1/10");
+            productDtos = new List<ProductDto>();
         }
 
         public async Task DeleteAsync(int id)
@@ -55,6 +56,23 @@ namespace SampleProject.Client.Pages
             if (responce.IsSuccessStatusCode)
                 _navigationManager.NavigateTo("Product_Index");
             //_events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+        }
+
+        private async Task<GridData<ProductDto>> LoadServerData(GridState<ProductDto> state)
+        {
+            var pageSize = state.PageSize;
+            var pageIndex = state.Page + 1;
+
+            productDtos = await _httpClient
+                .GetFromJsonAsync<IList<ProductDto>>($"api/Product/Index/{pageIndex}/{pageSize}");
+
+            GridData<ProductDto> data = new()
+            {
+                Items = productDtos,
+                TotalItems = 12
+            };
+
+            return data;
         }
     }
 }

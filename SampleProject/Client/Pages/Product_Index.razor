@@ -4,11 +4,11 @@
 
 <h3>Product</h3>
 
-<div class="nav-item px-3">
+@* <div class="nav-item px-3">
     <NavLink class="nav-link" href="Product_Create">
         <span class="oi oi-plus" aria-hidden="true"></span> Create
     </NavLink>
-</div>
+</div> *@
 
 @if (productDtos == null)
 {
@@ -16,11 +16,14 @@
 }
 else
 {
-    @inject HttpClient httpClient
-
-    <MudDataGrid T="ProductDto" Items="@productDtos" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+    <MudDataGrid T="ProductDto" ServerData="LoadServerData" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
                  StartedEditingItem="@StartedEditingItem" SortMode="SortMode.Multiple" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
                  Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
+        <ToolBarContent>
+            <MudSpacer />
+            <MudButton Color="MudBlazor.Color.Primary" aria-hidden="true"
+                       Variant="Variant.Outlined" Href="Product_Create">Add</MudButton>
+        </ToolBarContent>
         <Columns>
             <PropertyColumn Property="x => x.Name" />
             <PropertyColumn Property="x => x.ShortDescription" />
@@ -39,7 +42,7 @@ else
             </TemplateColumn>
         </Columns>
         <PagerContent>
-            <MudDataGridPager T="ProductDto" />
+            <MudDataGridPager T="ProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
         </PagerContent>
     </MudDataGrid>
 }

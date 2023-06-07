@@ -18,10 +18,10 @@ namespace SampleProject.Server.BaseController
         }
 
         [HttpGet]
-        [Route(nameof(Index))]
-        public virtual async Task<IActionResult> Index()
+        [Route($"{nameof(Index)}/{{pageIndex}}/{{pageSize}}")]
+        public virtual async Task<IActionResult> Index(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var entity = await _repository.GetAllAsync();
+            var entity = await _repository.GetAllAsync(pageIndex, pageSize);
             var model = _mapper.Map<IList<TVModel>>(entity);
             return Ok(model);
         }
@@ -40,7 +40,8 @@ namespace SampleProject.Server.BaseController
             var model = _mapper.Map<TEntity>(entity);
 
             var result = await _repository.AddAndSaveChangesAsync(model);
-            return RedirectToAction("Index");
+            
+            return Json(result);
         }
 
         [HttpGet]

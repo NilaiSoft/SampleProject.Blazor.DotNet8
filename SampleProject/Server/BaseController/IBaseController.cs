@@ -6,7 +6,7 @@ namespace SampleProject.Server.BaseController
     public interface IBaseController<TEntity, TVModel>
             where TEntity : BaseEntity
     {
-        Task<IActionResult> Index();
+        Task<IActionResult> Index(int pageIndex = 0, int pageSize = int.MaxValue);
         Task<IActionResult> Create();
 
         [HttpPost]
