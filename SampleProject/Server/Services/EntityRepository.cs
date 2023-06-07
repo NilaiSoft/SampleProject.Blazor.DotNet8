@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using SampleProject.Core;
 using SampleProject.Server.Data;
 using System.Linq.Expressions;
 
@@ -112,11 +113,12 @@ namespace SampleProjects.Server.Services
             return query.OfType<ISoftDeletedEntity>().Where(entry => !entry.Deleted).OfType<TEntity>();
         }
 
-        public async Task<IList<TEntity>> GetAllAsync()
+        public async Task<IPagedList<TEntity>> GetAllAsync(int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = await _dbSet.ToListAsync();
 
-            return AddDeletedFilter(query, false).ToList();
+            var entities = AddDeletedFilter(query, false).ToList();
+            return new PagedList<TEntity>(entities, pageIndex, pageSize);
         }
 
         public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, TEntity>> expression)
