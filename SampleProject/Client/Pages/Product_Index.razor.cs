@@ -69,7 +69,7 @@ namespace SampleProject.Client.Pages
             GridData<ProductDto> data = new()
             {
                 Items = productDtos,
-                TotalItems = 12
+                TotalItems = 31
             };
 
             return data;

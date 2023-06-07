@@ -118,6 +118,7 @@ namespace SampleProjects.Server.Services
             var query = await _dbSet.ToListAsync();
 
             var entities = AddDeletedFilter(query, false).ToList();
+
             return new PagedList<TEntity>(entities, pageIndex, pageSize);
         }
 
