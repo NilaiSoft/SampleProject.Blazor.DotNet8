@@ -21,8 +21,8 @@ namespace SampleProject.Server.BaseController
         [Route($"{nameof(Index)}/{{pageIndex}}/{{pageSize}}")]
         public virtual async Task<IActionResult> Index(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var entity = await _repository.GetAllAsync(pageIndex, pageSize);
-            var model = _mapper.Map<IList<TVModel>>(entity);
+            var model = await _repository.GetAllAsync(pageIndex, pageSize);
+            //var model = _mapper.Map<IList<TVModel>>(entity);
             return Ok(model);
         }
 
