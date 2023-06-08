@@ -68,7 +68,7 @@ namespace SampleProject.Client.Pages
 
             GridData<ProductDto> data = new()
             {
-                Items = productDtos,
+                Items = productDtos ?? new List<ProductDto>(),
                 TotalItems = 31
             };
 
