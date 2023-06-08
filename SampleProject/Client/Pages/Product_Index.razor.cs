@@ -16,6 +16,7 @@ namespace SampleProject.Client.Pages
         private bool _isCellEditMode;
         private List<string> _events = new();
         private bool _editTriggerRowClick;
+        private string searchString1;
 
         public async Task DeleteAsync(int id)
         {

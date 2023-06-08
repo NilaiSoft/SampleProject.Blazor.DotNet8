@@ -4,47 +4,51 @@
 
 <h3>Product</h3>
 
-@* <div class="nav-item px-3">
-    <NavLink class="nav-link" href="Product_Create">
-        <span class="oi oi-plus" aria-hidden="true"></span> Create
-    </NavLink>
-</div> *@
-
 @if (false)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    <MudPaper Elevation="25">
+        <MudToolBar>
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Href="Product_Create" />
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Material.Outlined.MoreVert" Color="Color.Inherit" />
+        </MudToolBar>
+    </MudPaper>
     <MudDataGrid T="ProductDto" ServerData="LoadServerData" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
                  StartedEditingItem="@StartedEditingItem" SortMode="SortMode.Multiple" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
                  Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
         <ToolBarContent>
+            <MudText Typo="Typo.h4"></MudText>
             <MudSpacer />
-            <MudButton Color="MudBlazor.Color.Primary" aria-hidden="true"
-                       Variant="Variant.Outlined" Href="Product_Create">Add</MudButton>
-        </ToolBarContent>
-        <Columns>
-            <PropertyColumn Property="x => x.Name" />
-            <PropertyColumn Property="x => x.ShortDescription" />
-            <PropertyColumn Property="x => x.FullDescription" />
-            <PropertyColumn Property="x => x.AdminComment" />
-            <PropertyColumn Property="x => x.Enable">
-                <EditTemplate>
-                    <MudSwitch @bind-Checked="@context.Item.Enable" Color="Color.Primary"></MudSwitch>
-                </EditTemplate>
-            </PropertyColumn>
-            <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
-                <CellTemplate>
-                    <MudIconButton Variant=Variant.Filled Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
-                    <MudIconButton Variant=Variant.Filled OnClick="@(() => DeleteAsync(@context.Item.Id))" Color="@Color.Default" Icon="@Icons.Material.Filled.Delete" />
-                </CellTemplate>
-            </TemplateColumn>
-        </Columns>
-        <PagerContent>
-            <MudDataGridPager T="ProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
-        </PagerContent>
-    </MudDataGrid>
+            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+            <MudChipSet MultiSelection Filter>
+        </MudChipSet>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.Name" />
+        <PropertyColumn Property="x => x.ShortDescription" />
+        <PropertyColumn Property="x => x.FullDescription" />
+        <PropertyColumn Property="x => x.AdminComment" />
+        <PropertyColumn Property="x => x.Enable">
+            <EditTemplate>
+                <MudSwitch @bind-Checked="@context.Item.Enable" Color="Color.Primary"></MudSwitch>
+            </EditTemplate>
+        </PropertyColumn>
+        <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
+            <CellTemplate>
+                <MudIconButton Variant=Variant.Filled Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
+                <MudIconButton Variant=Variant.Filled OnClick="@(() => DeleteAsync(@context.Item.Id))" Color="@Color.Default" Icon="@Icons.Material.Filled.Delete" />
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="ProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
+    </PagerContent>
+</MudDataGrid>
 }
 
 
