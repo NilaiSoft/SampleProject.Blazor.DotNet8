@@ -2,12 +2,13 @@ using MudBlazor;
 using SampleProjects.Shared.Dtos;
 using SampleProjects.Shared.ViewModels.Product;
 using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
 
 namespace SampleProject.Client.Pages
 {
     public partial class Product_Index
     {
-        private IList<ProductDto>? productDtos;
+        private Tuple<IList<ProductDto>, int>? _productDtos;
         private bool _hidePosition;
         private bool _loading;
 
@@ -15,12 +16,6 @@ namespace SampleProject.Client.Pages
         private bool _isCellEditMode;
         private List<string> _events = new();
         private bool _editTriggerRowClick;
-
-        protected override async Task OnInitializedAsync()
-        {
-            //productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index/1/10");
-            productDtos = new List<ProductDto>();
-        }
 
         public async Task DeleteAsync(int id)
         {
@@ -35,7 +30,7 @@ namespace SampleProject.Client.Pages
                 var result = await _httpClient.DeleteAsync($"api/Product/Delete/{id}");
                 if (result.IsSuccessStatusCode)
                 {
-                    productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
+                    //productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
                 }
             }
         }
@@ -61,15 +56,15 @@ namespace SampleProject.Client.Pages
         private async Task<GridData<ProductDto>> LoadServerData(GridState<ProductDto> state)
         {
             var pageSize = state.PageSize;
-            var pageIndex = state.Page + 1;
+            var pageIndex = state.Page;
 
-            productDtos = await _httpClient
-                .GetFromJsonAsync<IList<ProductDto>>($"api/Product/Index/{pageIndex}/{pageSize}");
+            _productDtos = await _httpClient
+                .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{pageIndex}/{pageSize}");
 
             GridData<ProductDto> data = new()
             {
-                Items = productDtos ?? new List<ProductDto>(),
-                TotalItems = 31
+                Items = _productDtos.Item1,
+                TotalItems = _productDtos.Item2
             };
 
             return data;

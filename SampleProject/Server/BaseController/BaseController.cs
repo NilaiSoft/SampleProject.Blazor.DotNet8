@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SampleProject.Core;
 using SampleProject.Server.Data;
 using SampleProjects.Server.Services;
 
@@ -23,7 +24,7 @@ namespace SampleProject.Server.BaseController
         {
             var model = await _repository.GetAllAsync(pageIndex, pageSize);
             //var model = _mapper.Map<IList<TVModel>>(entity);
-            return Ok(model);
+            return Ok(new Tuple<IPagedList<TEntity>, int>(model, model.TotalCount));
         }
 
         [HttpGet]
@@ -40,7 +41,7 @@ namespace SampleProject.Server.BaseController
             var model = _mapper.Map<TEntity>(entity);
 
             var result = await _repository.AddAndSaveChangesAsync(model);
-            
+
             return Json(result);
         }
 
