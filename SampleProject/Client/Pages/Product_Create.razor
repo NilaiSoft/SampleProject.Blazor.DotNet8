@@ -18,10 +18,10 @@
         <MudTextField @bind-Value="productVM.AdminComment" Label="AdminComment" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
     </div>
     <MudSwitch @bind-Checked="@productVM.Enable" Color="Color.Primary">Enable</MudSwitch>
-    <div class="mb-3 col-xl-5">
-        <MudButton ButtonType=ButtonType.Submit Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" IconColor="Color.Info" Size="Size.Large">Save</MudButton>
-    </div>
+    <MudPaper Elevation="25">
+        <footer>
+            <MudIconButton Icon="@Icons.Material.Outlined.Cancel" OnClick="BackToList" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Save" ButtonType="ButtonType.Submit" />
+        </footer>
+    </MudPaper>
 </EditForm>
-
-
-
