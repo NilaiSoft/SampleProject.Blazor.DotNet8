@@ -63,13 +63,17 @@ namespace SampleProject.Client.Pages
             _productDtos = await _httpClient
                 .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{pageIndex}/{pageSize}");
 
-            GridData<ProductDto> data = new()
+            var data = _productDtos.Item1;
+
+            data = data.OrderBySortDefinitions<ProductDto>(state).ToList();
+
+            GridData<ProductDto> model = new()
             {
-                Items = _productDtos.Item1,
+                Items = data,
                 TotalItems = _productDtos.Item2
             };
 
-            return data;
+            return model;
         }
     }
 }
