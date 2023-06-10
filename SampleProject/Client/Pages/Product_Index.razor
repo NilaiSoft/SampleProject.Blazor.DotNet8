@@ -19,7 +19,7 @@ else
             <MudIconButton Icon="@Icons.Material.Outlined.MoreVert" Color="Color.Inherit" />
         </MudToolBar>
     </MudPaper>
-    <MudDataGrid T="ProductDto" ServerData="LoadServerData" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+    <MudDataGrid T="ProductDto" Hover=true ServerData="LoadServerData" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
                  StartedEditingItem="@StartedEditingItem" SortMode="SortMode.Multiple" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
                  Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
         <ToolBarContent>
