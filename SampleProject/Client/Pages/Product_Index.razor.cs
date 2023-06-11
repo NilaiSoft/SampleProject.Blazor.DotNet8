@@ -10,6 +10,7 @@ public partial class Product_Index
     private List<string> _events = new();
     private bool _editTriggerRowClick;
     private string searchString1;
+    IList<string> test;
 
     public async Task DeleteAsync(int id)
     {
@@ -69,5 +70,53 @@ public partial class Product_Index
         }
 
         return new GridData<ProductDto>();
+    }
+    private Func<ProductDto, bool> _quickFilter => x =>
+    {
+        if (string.IsNullOrWhiteSpace(searchString1))
+            return true;
+
+        if (x.Name.Contains(searchString1, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (x.ShortDescription.Contains(searchString1, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        return false;
+    };
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            test = new List<string>();
+            for (int i = 1; i < 100; i++)
+            {
+                test.Add($"Ehsan-{i}");
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private async Task<IEnumerable<string>> Search(string value, CancellationToken token)
+    {
+        var model = await _httpClient.GetFromJsonAsync<IList<ProductDto>>($"api/Product/SearchProduct/{value}");
+
+        return model.Select(x => x.Name).ToList<string>();
+    }
+
+    private async Task ExpandedChanged(bool newVal)
+    {
+        if (newVal)
+        {
+            await Task.Delay(600);
+        }
+        else
+        {
+            // Reset after a while to prevent sudden collapse.
+        }
     }
 }
