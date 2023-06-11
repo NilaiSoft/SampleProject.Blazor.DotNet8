@@ -107,16 +107,4 @@ public partial class Product_Index
 
         return model.Select(x => x.Name).ToList<string>();
     }
-
-    private async Task ExpandedChanged(bool newVal)
-    {
-        if (newVal)
-        {
-            await Task.Delay(600);
-        }
-        else
-        {
-            // Reset after a while to prevent sudden collapse.
-        }
-    }
 }
