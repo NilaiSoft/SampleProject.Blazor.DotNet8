@@ -53,16 +53,21 @@ public partial class Product_Index
         _productDtos = await _httpClient
             .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}");
 
-        var data = _productDtos.Item1;
-
-        data = data.OrderBySortDefinitions<ProductDto>(state).ToList();
-
-        GridData<ProductDto> model = new()
+        if (_productDtos is not null)
         {
-            Items = data,
-            TotalItems = _productDtos.Item2
-        };
+            var data = _productDtos.Item1;
 
-        return model;
+            data = data.OrderBySortDefinitions<ProductDto>(state).ToList();
+
+            GridData<ProductDto> model = new()
+            {
+                Items = data,
+                TotalItems = _productDtos.Item2
+            };
+
+            return model;
+        }
+
+        return new GridData<ProductDto>();
     }
 }
