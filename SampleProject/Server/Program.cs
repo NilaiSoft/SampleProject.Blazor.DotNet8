@@ -1,13 +1,3 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
-using SampleProject.Server.Data;
-using SampleProject.Server.Models;
-using SampleProjects.Server;
-using SampleProjects.Server.Services;
-using System.Reflection;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

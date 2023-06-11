@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using SampleProject.Server.Data;
-using SampleProject.Server.VModels;
-
-public class MappingProfile : Profile
+﻿public class MappingProfile : Profile
 {
     public MappingProfile()
     {
