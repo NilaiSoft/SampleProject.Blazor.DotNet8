@@ -50,11 +50,8 @@ public partial class Product_Index
 
     private async Task<GridData<ProductDto>> LoadServerData(GridState<ProductDto> state)
     {
-        var pageSize = state.PageSize;
-        var pageIndex = state.Page;
-
         _productDtos = await _httpClient
-            .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{pageIndex}/{pageSize}");
+            .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}");
 
         var data = _productDtos.Item1;
 
