@@ -10,3 +10,6 @@ global using SampleProject.Server.Models;
 global using SampleProjects.Server;
 global using SampleProjects.Server.Services;
 global using System.Reflection;
+global using Duende.IdentityServer.EntityFramework.Options;
+global using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+global using Microsoft.Extensions.Options;

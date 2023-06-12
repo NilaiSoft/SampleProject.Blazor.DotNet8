@@ -32,5 +32,14 @@ namespace SampleProject.Server.Controllers
 
             return Ok(model);
         }
+
+        [HttpGet]
+        [Route($"{nameof(Edit)}/{{id}}")]
+        public override async Task<IActionResult> Edit(int id)
+        {
+            var model = await _productService.FindAsync(x => x.Id == id);
+
+            return Ok(model);
+        }
     }
 }
