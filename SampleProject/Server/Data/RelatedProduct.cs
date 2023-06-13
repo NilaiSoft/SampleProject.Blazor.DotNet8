@@ -8,13 +8,13 @@ namespace SampleProject.Server.Data
         /// 
         /// </summary>
         [ForeignKey(nameof(Product1))]
-        public int ProductId1 { get; set; }
+        public int? ProductId1 { get; set; }
         
         /// <summary>
         /// 
         /// </summary>
         [ForeignKey(nameof(Product2))]
-        public int ProductId2 { get; set; }
+        public int? ProductId2 { get; set; }
         
         /// <summary>
         /// 
@@ -23,7 +23,8 @@ namespace SampleProject.Server.Data
 
         /// <summary>
         /// 
-        /// </summary>        
+        /// </summary>   
+        [NotMapped]
         public Product Product2 { get; set; }
         
         /// <summary>

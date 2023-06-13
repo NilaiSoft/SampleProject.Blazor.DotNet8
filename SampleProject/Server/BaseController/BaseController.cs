@@ -60,7 +60,7 @@ namespace SampleProject.Server.BaseController
         {
             var model = _mapper.Map<TEntity>(entity);
             var result = await _repository.EditAsync(model);
-            return RedirectToAction("Index");
+            return Ok(result);
         }
 
         [HttpDelete($"{nameof(Delete)}/{{id}}")]

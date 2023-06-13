@@ -17,4 +17,9 @@ public partial class Product_Edit
         if (responce.IsSuccessStatusCode)
             _navigationManager.NavigateTo("Product_Index");
     }
+
+    private void BackToList()
+    {
+        _navigationManager.NavigateTo("Product_Index");
+    }
 }

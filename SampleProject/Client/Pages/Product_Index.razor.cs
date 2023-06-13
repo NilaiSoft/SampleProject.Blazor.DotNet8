@@ -10,7 +10,6 @@ public partial class Product_Index
     private List<string> _events = new();
     private bool _editTriggerRowClick;
     private string searchString1;
-    IList<string> test;
 
     public async Task DeleteAsync(int id)
     {
@@ -85,26 +84,15 @@ public partial class Product_Index
         return false;
     };
 
-    protected override void OnInitialized()
-    {
-        try
-        {
-            test = new List<string>();
-            for (int i = 1; i < 100; i++)
-            {
-                test.Add($"Ehsan-{i}");
-            }
-        }
-        catch (Exception ex)
-        {
-
-        }
-    }
-
     private async Task<IEnumerable<string>> Search(string value, CancellationToken token)
     {
         var model = await _httpClient.GetFromJsonAsync<IList<ProductDto>>($"api/Product/SearchProduct/{value}");
 
         return model.Select(x => x.Name).ToList<string>();
+    }
+
+    private void EditAsync(int Id)
+    {
+        _navigationManager.NavigateTo($"Product_Edit/{Id}");
     }
 }

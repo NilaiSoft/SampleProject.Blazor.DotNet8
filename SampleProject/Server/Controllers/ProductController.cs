@@ -37,7 +37,7 @@ namespace SampleProject.Server.Controllers
         [Route($"{nameof(Edit)}/{{id}}")]
         public override async Task<IActionResult> Edit(int id)
         {
-            var model = await _productService.FindAsync(x => x.Id == id);
+            var model = await _productService.FindAsync(id);
 
             return Ok(model);
         }
