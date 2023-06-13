@@ -49,9 +49,9 @@ namespace SampleProject.Server.BaseController
         [Route($"{nameof(Edit)}/{{id}}")]
         public virtual async Task<IActionResult> Edit(int id)
         {
-            var model = await _repository.GetAsync(x => x.Id == id);
-            var model2 = _mapper.Map<TVModel>(model);
-            return Ok(model2);
+            var model = await _repository.FindAsync(x => x.Id == id);
+
+            return Ok(model);
         }
 
         [HttpPost]

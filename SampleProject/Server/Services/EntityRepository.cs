@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SampleProject.Core;
 using SampleProject.Server.Data;
+using System.Collections;
 using System.Linq.Expressions;
 
 namespace SampleProjects.Server.Services
@@ -102,12 +103,16 @@ namespace SampleProjects.Server.Services
 
         public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate)
         {
-            var query = await _dbSet.Where(_pridicate).ToListAsync();
+            async Task<IList<TEntity>> getAllAsync()
+            {
+                var query = _dbSet.Where(_pridicate).AsQueryable();
+                return await AddDeletedFilter(query, false).ToListAsync();
+            }
 
-            return AddDeletedFilter(query, false).ToList();
+            return await getAllAsync();
         }
 
-        protected IEnumerable<TEntity> AddDeletedFilter(IList<TEntity> query, bool includeDeleted)
+        protected IQueryable<TEntity> AddDeletedFilter(IQueryable<TEntity> query, bool includeDeleted)
         {
             if (includeDeleted)
                 return query;
@@ -120,26 +125,26 @@ namespace SampleProjects.Server.Services
 
         public async Task<IPagedList<TEntity>> GetAllAsync(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var query = await _dbSet.ToListAsync();
+            var query = _dbSet.AsQueryable();
 
-            var entities = AddDeletedFilter(query, false).ToList();
+            var entities = AddDeletedFilter(query, false);
 
-            return new PagedList<TEntity>(entities, pageIndex, pageSize);
+            return await entities.ToPagedListAsync(pageIndex, pageSize);
         }
 
         public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, TEntity>> expression)
         {
-            var query = await _dbSet.Select(expression).ToListAsync();
+            var query = _dbSet.Select(expression).AsQueryable();
 
-            return AddDeletedFilter(query, false).ToList();
+            return await AddDeletedFilter(query, false).ToListAsync();
         }
 
         public async Task<IList<TEntity>> GetAllAsync
             (Expression<Func<TEntity, bool>> _pridicate, Expression<Func<TEntity, TEntity>> _selectList)
         {
-            var query = await _dbSet.Where(_pridicate).Select(_selectList).ToListAsync();
+            var query = _dbSet.Where(_pridicate).Select(_selectList).AsQueryable();
 
-            return AddDeletedFilter(query, false).ToList();
+            return await AddDeletedFilter(query, false).ToListAsync();
         }
 
         #region UpdateUseZEntity
