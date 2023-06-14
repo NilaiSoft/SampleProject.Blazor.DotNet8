@@ -84,14 +84,14 @@ public partial class Product_Index
         return false;
     };
 
-    private async Task<IEnumerable<string>> Search(string value, CancellationToken token)
+    private async Task<IEnumerable<string>> SearchProduct(string value, CancellationToken token)
     {
         var model = await _httpClient.GetFromJsonAsync<IList<ProductDto>>($"api/Product/SearchProduct/{value}");
 
         return model.Select(x => x.Name).ToList<string>();
     }
 
-    private void EditAsync(int Id)
+    private void Edit(int Id)
     {
         _navigationManager.NavigateTo($"Product_Edit/{Id}");
     }

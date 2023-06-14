@@ -23,11 +23,11 @@ else
     <MudExpansionPanels MultiExpansion="true">
         <MudExpansionPanel Text="Search" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.SearchOff">
             <MudAutocomplete T="string"
-                             Label="US States"
-                             SearchFuncWithCancel="@Search"
-                             Variant="Variant.Outlined"
-                             ShowProgressIndicator="true"
-                             AdornmentIcon="@Icons.Material.Filled.Search" />
+            Label="US States"
+            SearchFuncWithCancel="@SearchProduct"
+            Variant="Variant.Outlined"
+            ShowProgressIndicator="true"
+            AdornmentIcon="@Icons.Material.Filled.Search" />
         </MudExpansionPanel>
         <MudExpansionPanel Text="Data" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.GridView">
             <MudDataGrid T="ProductDto" Hover=true ServerData="LoadServerData" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
@@ -54,7 +54,7 @@ else
                 <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Variant=Variant.Filled Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
-                        <MudIconButton Variant=Variant.Filled OnClick="@(() => EditAsync(@context.Item.Id))" Color="@Color.Default" Icon="@Icons.Material.Filled.Edit" />
+                        <MudIconButton Variant=Variant.Filled OnClick="@(() => Edit(@context.Item.Id))" Color="@Color.Default" Icon="@Icons.Material.Filled.Edit" />
                         <MudIconButton Variant=Variant.Filled OnClick="@(() => DeleteAsync(@context.Item.Id))" Color="@Color.Default" Icon="@Icons.Material.Filled.Delete" />
                     </CellTemplate>
                 </TemplateColumn>
