@@ -3,26 +3,17 @@
 <p>
     This component edit product data to the server.
 </p>
+
 <EditForm Model="@productVM" OnValidSubmit="EditData" class="card card-body bg-light">
-    <div class="mb-3 col-xl-5">
-        <MudTextField @bind-Value="productVM.Name" Label="Name" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
-    </div>
-    <div class="mb-3 col-xl-5">
-        <MudTextField @bind-Value="productVM.ShortDescription" Label="ShortDescription" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
-    </div>
-    <div class="mb-3 col-xl-5">
-        <MudTextField @bind-Value="productVM.FullDescription" Label="FullDescription" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
-    </div>
-    <div class="mb-3 col-xl-5">
-        <MudTextField @bind-Value="productVM.AdminComment" Label="AdminComment" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
-    </div>
-    <MudSwitch @bind-Checked="@productVM.Enable" Color="Color.Primary">Enable</MudSwitch>
-    <MudPaper Elevation="25">
-        <footer>
-            <MudIconButton Icon="@Icons.Material.Outlined.Cancel" OnClick="BackToList" />
-            <MudIconButton Icon="@Icons.Material.Outlined.Save" ButtonType="ButtonType.Submit" />
-        </footer>
-    </MudPaper>
+    <MudExpansionPanels MultiExpansion="true">
+        <MudPaper Elevation="25">
+            <footer>
+                <MudIconButton Icon="@Icons.Material.Outlined.Cancel" OnClick="BackToList" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Save" ButtonType="ButtonType.Submit" />
+            </footer>
+        </MudPaper>
+        <_CreateOrUpdate productVM="@productVM" />
+    </MudExpansionPanels>
 </EditForm>
 
 
