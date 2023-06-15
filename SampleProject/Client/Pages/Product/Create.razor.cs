@@ -1,17 +1,17 @@
-namespace SampleProject.Client.Pages;
-public partial class Product_Create
+namespace SampleProject.Client.Pages.Product;
+public partial class Create
 {
     private readonly ProductVM productVM = new();
 
-    public async Task Create()
+    public async Task CreateData()
     {
         var responce = await _httpClient.PostAsJsonAsync("api/Product/Create", productVM);
         if (responce.IsSuccessStatusCode)
-            _navigationManager.NavigateTo("Product_Index");
+            _navigationManager.NavigateTo("Product/Index");
     }
 
     private void BackToList()
     {
-        _navigationManager.NavigateTo("Product_Index");
+        _navigationManager.NavigateTo("Product/Index");
     }
 }

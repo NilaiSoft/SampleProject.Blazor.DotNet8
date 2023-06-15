@@ -1,5 +1,5 @@
-namespace SampleProject.Client.Pages;
-public partial class Product_Index
+namespace SampleProject.Client.Pages.Product;
+public partial class Index
 {
     private Tuple<IList<ProductDto>, int>? _productDtos;
     private bool _hidePosition;
@@ -25,7 +25,7 @@ public partial class Product_Index
             if (result.IsSuccessStatusCode)
             {
                 //productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
-                _navigationManager.NavigateTo("Product_Index");
+                _navigationManager.NavigateTo("Product/Index");
             }
         }
     }
@@ -44,7 +44,7 @@ public partial class Product_Index
     {
         var responce = await _httpClient.PostAsJsonAsync("api/Product/Edit", item);
         if (responce.IsSuccessStatusCode)
-            _navigationManager.NavigateTo("Product_Index");
+            _navigationManager.NavigateTo("Product/Index");
         //_events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
     }
 
@@ -57,7 +57,7 @@ public partial class Product_Index
         {
             var data = _productDtos.Item1;
 
-            data = data.OrderBySortDefinitions<ProductDto>(state).ToList();
+            data = data.OrderBySortDefinitions(state).ToList();
 
             GridData<ProductDto> model = new()
             {
@@ -93,6 +93,6 @@ public partial class Product_Index
 
     private void Edit(int Id)
     {
-        _navigationManager.NavigateTo($"Product_Edit/{Id}");
+        _navigationManager.NavigateTo($"Product/Edit/{Id}");
     }
 }

@@ -1,9 +1,9 @@
-﻿@page "/Product_Edit/{Id:int}"
+﻿@page "/Product/Edit/{Id:int}"
 <h3>Product Edit</h3>
 <p>
     This component edit product data to the server.
 </p>
-<EditForm Model="@productVM" OnValidSubmit="Edit" class="card card-body bg-light">
+<EditForm Model="@productVM" OnValidSubmit="EditData" class="card card-body bg-light">
     <div class="mb-3 col-xl-5">
         <MudTextField @bind-Value="productVM.Name" Label="Name" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
     </div>

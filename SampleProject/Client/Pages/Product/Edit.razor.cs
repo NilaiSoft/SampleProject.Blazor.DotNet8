@@ -1,5 +1,5 @@
-namespace SampleProject.Client.Pages;
-public partial class Product_Edit
+namespace SampleProject.Client.Pages.Product;
+public partial class Edit
 {
     private ProductVM? productVM = new();
 
@@ -11,15 +11,15 @@ public partial class Product_Edit
         productVM = await _httpClient.GetFromJsonAsync<ProductVM>($"api/Product/Edit/{Id}");
     }
 
-    public async Task Edit()
+    public async Task EditData()
     {
         var responce = await _httpClient.PostAsJsonAsync("api/Product/Edit", productVM);
         if (responce.IsSuccessStatusCode)
-            _navigationManager.NavigateTo("Product_Index");
+            _navigationManager.NavigateTo("Product/Index");
     }
 
     private void BackToList()
     {
-        _navigationManager.NavigateTo("Product_Index");
+        _navigationManager.NavigateTo("Product/Index");
     }
 }
