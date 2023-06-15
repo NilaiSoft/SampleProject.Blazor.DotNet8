@@ -6,9 +6,9 @@ namespace SampleProjects.Server.Services
 {
     public class ProductService : EntityRepository<Product, ProductModel>, IProductService
     {
-        readonly EntityRepository<Product, ProductModel> _entityRepository;
+        readonly IEntityRepository<Product, ProductModel> _entityRepository;
         public ProductService(ApplicationDbContext dbContext
-            , EntityRepository<Product, ProductModel> entityRepository)
+            , IEntityRepository<Product, ProductModel> entityRepository)
             : base(dbContext)
         {
             _entityRepository = entityRepository;
