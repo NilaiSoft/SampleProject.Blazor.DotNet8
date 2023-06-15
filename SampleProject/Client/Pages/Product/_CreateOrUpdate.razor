@@ -11,6 +11,12 @@
     <div class="mb-3 col-xl-5">
         <MudTextField @bind-Value="productVM.AdminComment" Label="AdminComment" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
     </div>
-    <MudSwitch @bind-Checked="@productVM.Enable" Color="Color.Primary">Enable</MudSwitch>
+    <div class="mb-3 col-xl-5">
+        <MudSwitch @bind-Checked="@productVM.Enable" Color="Color.Primary">Enable</MudSwitch>
+    </div>
+</MudExpansionPanel>
+
+<MudExpansionPanel Text="Related products" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
+
 </MudExpansionPanel>
 
