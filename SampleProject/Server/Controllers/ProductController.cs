@@ -14,10 +14,14 @@ namespace SampleProject.Server.Controllers
     public class ProductController : BaseController<Product, ProductModel>
     {
         private readonly IProductService _productService;
-        public ProductController(IEntityRepository<Product, ProductModel> repository, IMapper mapper, IProductService productService)
+        private readonly IRelatedProductService _relatedProductService;
+        private readonly IMapper _mapper;
+        public ProductController(IEntityRepository<Product, ProductModel> repository, IMapper mapper, IProductService productService, IRelatedProductService relatedProductService)
             : base(repository, mapper)
         {
             _productService = productService;
+            _relatedProductService = relatedProductService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -40,6 +44,28 @@ namespace SampleProject.Server.Controllers
             var model = await _productService.FindAsync(id);
 
             return Ok(model);
+        }
+
+        [HttpPost]
+        [Route(nameof(Create))]
+        public override async Task<IActionResult> Create(ProductModel entity)
+        {
+            var item = _mapper.Map<Product>(entity);
+            var product = (await _productService.AddAsync(item)).Entity;
+
+            var lstRel = new List<RelatedProduct>();
+
+            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 6 });
+            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 7 });
+            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 8 });
+            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 9 });
+            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 10 });
+
+            product.RelatedProducts.AddRange(lstRel);
+
+            await _productService.SaveChangesAsync();
+
+            return Ok(product);
         }
     }
 }

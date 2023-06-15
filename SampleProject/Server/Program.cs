@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IRelatedProductService, RelatedProductService>();
 builder.Services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

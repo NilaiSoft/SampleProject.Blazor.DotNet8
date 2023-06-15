@@ -47,6 +47,6 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual ICollection<RelatedProduct> RelatedProducts { get; set; }
+        public virtual List<RelatedProduct> RelatedProducts { get; set; }
     }
 }

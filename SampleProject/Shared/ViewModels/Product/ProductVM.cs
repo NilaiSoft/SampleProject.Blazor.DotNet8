@@ -23,6 +23,6 @@ namespace SampleProjects.Shared.ViewModels.Product
         public bool Enable { get; set; }
         public bool Deleted { get; set; }
 
-        public RelatedProductVM RelatedProductVM { get; set; }
+        public ICollection<RelatedProductVM> RelatedProductVM { get; set; }
     }
 }

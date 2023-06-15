@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleProject.Shared.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,5 +29,6 @@ namespace SampleProjects.Shared.Dtos
         public bool Deleted { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }
+        public ICollection<RelatedProductDto> RelatedProductDtos { get; set; }
     }
 }
