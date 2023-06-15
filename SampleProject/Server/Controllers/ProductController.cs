@@ -50,22 +50,11 @@ namespace SampleProject.Server.Controllers
         [Route(nameof(Create))]
         public override async Task<IActionResult> Create(ProductModel entity)
         {
-            var item = _mapper.Map<Product>(entity);
-            var product = (await _productService.AddAsync(item)).Entity;
+            var product = _mapper.Map<Product>(entity);
 
-            var lstRel = new List<RelatedProduct>();
+            var result = await _productService.AddProductAsync(product);
 
-            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 6 });
-            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 7 });
-            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 8 });
-            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 9 });
-            lstRel.Add(new RelatedProduct { Product1 = product, ProductId2 = 10 });
-
-            product.RelatedProducts.AddRange(lstRel);
-
-            await _productService.SaveChangesAsync();
-
-            return Ok(product);
+            return Ok(result);
         }
     }
 }
