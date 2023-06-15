@@ -31,8 +31,7 @@ namespace SampleProject.Server.Controllers
             var model = await _productService.GetAllAsync(
                 x => (x.Name.Contains(searchString)
                 || x.ShortDescription.Contains(searchString)
-                || x.FullDescription.Contains(searchString))
-                && x.Enable);
+                || x.FullDescription.Contains(searchString)));
 
             return Ok(model);
         }
