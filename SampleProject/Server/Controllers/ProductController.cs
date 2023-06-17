@@ -37,6 +37,14 @@ namespace SampleProject.Server.Controllers
         }
 
         [HttpGet]
+        [Route($"{nameof(RelatedProducts)}/{{pageIndex}}/{{pageSize}}")]
+        public virtual async Task<IActionResult> RelatedProducts(int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            var model = await _relatedProductService.GetAllAsync(pageIndex, pageSize);
+            return Ok(new Tuple<IPagedList<RelatedProduct>, int>(model, model.TotalCount));
+        }
+
+        [HttpGet]
         [Route($"{nameof(Edit)}/{{id}}")]
         public override async Task<IActionResult> Edit(int id)
         {

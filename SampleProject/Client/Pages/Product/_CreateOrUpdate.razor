@@ -1,4 +1,5 @@
-﻿<MudExpansionPanel Text="Product Info" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
+﻿@using SampleProject.Shared.Dtos;
+<MudExpansionPanel Text="Product Info" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
     <div class="mb-3 col-xl-5">
         <MudTextField @bind-Value="productVM.Name" Label="Name" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
     </div>
@@ -17,6 +18,16 @@
 </MudExpansionPanel>
 
 <MudExpansionPanel Text="Related products" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
-
+    <MudDataGrid T="RelatedProductDto" Hover=true ServerData="LoadRelatedProducts" EditMode="DataGridEditMode.Cell"
+                 SortMode="SortMode.Multiple"
+                 Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
+        <Columns>
+            <PropertyColumn Property="x => x.ProductId1" />
+            <PropertyColumn Property="x => x.ProductId2" />
+        </Columns>
+        <PagerContent>
+            <MudDataGridPager T="RelatedProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
+        </PagerContent>
+    </MudDataGrid>
 </MudExpansionPanel>
 
