@@ -147,6 +147,16 @@ namespace SampleProjects.Server.Services
             return await AddDeletedFilter(query, false).ToListAsync();
         }
 
+
+        public async Task<IPagedList<TEntity>> GetAllAsync
+            (Expression<Func<TEntity, bool>> _pridicate
+            , Expression<Func<TEntity, TEntity>> _selectList, int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            var query = _dbSet.Where(_pridicate).Select(_selectList).AsQueryable();
+
+            return await AddDeletedFilter(query, false).ToPagedListAsync(pageIndex, pageSize);
+        }
+
         #region UpdateUseZEntity
         //public async Task<int> EditAsync(Expression<Func<TEntity, bool>> predicate,
         //    Expression<Func<TEntity, TEntity>> expression)

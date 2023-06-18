@@ -27,6 +27,11 @@ namespace SampleProjects.Server.Services
         Task<IList<TEntity>> GetAllAsync
         (Expression<Func<TEntity, bool>> _pridicate,
             Expression<Func<TEntity, TEntity>> selectList);
+
+        Task<IPagedList<TEntity>> GetAllAsync
+            (Expression<Func<TEntity, bool>> _pridicate
+            , Expression<Func<TEntity, TEntity>> _selectList, int pageIndex = 0, int pageSize = int.MaxValue);
+
         Task<IPagedList<TEntity>> GetAllAsync(int pageIndex = 0, int pageSize = int.MaxValue);
         Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, TEntity>> selectList);
         Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> _pridicate);
