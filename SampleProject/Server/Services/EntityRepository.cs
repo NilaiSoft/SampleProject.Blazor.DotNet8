@@ -91,6 +91,12 @@ namespace SampleProjects.Server.Services
             return await _dbSet.FirstOrDefaultAsync(_pridicate);
         }
 
+        public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> _pridicate
+            , Expression<Func<TEntity, TEntity>> expression)
+        {
+            return await _dbSet.Where(_pridicate).Select(expression).FirstOrDefaultAsync();
+        }
+
         public async Task<TEntity?> FindAsync(int Id)
         {
             return await _dbSet.FindAsync(Id);
