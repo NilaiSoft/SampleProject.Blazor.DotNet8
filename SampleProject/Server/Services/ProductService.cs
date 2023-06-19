@@ -18,11 +18,6 @@ namespace SampleProjects.Server.Services
         {
             product = (await _entityRepository.AddAsync(product)).Entity;
 
-            foreach (var rp in product.RelatedProducts)
-            {
-                rp.Product1 = product;
-            }
-
             return await _entityRepository.SaveChangesAsync();
         }
     }
