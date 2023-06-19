@@ -37,10 +37,10 @@ namespace SampleProject.Server.Controllers
         }
 
         [HttpGet]
-        [Route($"{nameof(RelatedProducts)}/{{pageIndex}}/{{pageSize}}")]
-        public virtual async Task<IActionResult> RelatedProducts(int pageIndex = 0, int pageSize = int.MaxValue)
+        [Route($"{nameof(RelatedProducts)}/{{productId}}/{{pageIndex}}/{{pageSize}}")]
+        public virtual async Task<IActionResult> RelatedProducts(int productId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var model = await _relatedProductService.GetAllAsync(pageIndex, pageSize);
+            var model = await _relatedProductService.GetAllAsync(x => x.ProductId1 == productId, pageIndex, pageSize);
             return Ok(new Tuple<IPagedList<RelatedProduct>, int>(model, model.TotalCount));
         }
 

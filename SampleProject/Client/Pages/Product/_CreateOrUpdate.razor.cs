@@ -8,12 +8,15 @@ namespace SampleProject.Client.Pages.Product
         [Parameter]
         public ProductVM? productVM { get; set; }
 
+        [Parameter]
+        public int productId { get; set; }
+
         private Tuple<IList<RelatedProductDto>, int>? _relatedProductDtos;
 
         private async Task<GridData<RelatedProductDto>> LoadRelatedProducts(GridState<RelatedProductDto> state)
         {
             _relatedProductDtos = await _httpClient
-                .GetFromJsonAsync<Tuple<IList<RelatedProductDto>, int>>($"api/Product/RelatedProducts/{state.Page}/{state.PageSize}");
+                .GetFromJsonAsync<Tuple<IList<RelatedProductDto>, int>>($"api/Product/RelatedProducts/{productId}/{state.Page}/{state.PageSize}");
 
             if (_relatedProductDtos is not null)
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SampleProject.Core;
 using SampleProject.Server.Data;
@@ -132,6 +133,15 @@ namespace SampleProjects.Server.Services
         public async Task<IPagedList<TEntity>> GetAllAsync(int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = _dbSet.AsQueryable();
+
+            var entities = AddDeletedFilter(query, false);
+
+            return await entities.ToPagedListAsync(pageIndex, pageSize);
+        }
+
+        public async Task<IPagedList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate, int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            var query = _dbSet.Where(_pridicate).AsQueryable();
 
             var entities = AddDeletedFilter(query, false);
 
