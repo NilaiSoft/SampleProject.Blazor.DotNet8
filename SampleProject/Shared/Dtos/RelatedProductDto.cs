@@ -1,4 +1,7 @@
-﻿namespace SampleProject.Shared.Dtos
+﻿using SampleProjects.Shared.Dtos;
+using SampleProjects.Shared.ViewModels.Product;
+
+namespace SampleProject.Shared.Dtos
 {
     public class RelatedProductDto
     {
@@ -11,5 +14,7 @@
         public string ProductName2 { get; set; }
 
         public int DisplayOrder { get; set; }
+
+        public ProductDto ProductDto { get; set; }
     }
 }

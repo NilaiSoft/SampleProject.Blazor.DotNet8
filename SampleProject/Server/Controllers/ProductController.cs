@@ -40,7 +40,16 @@ namespace SampleProject.Server.Controllers
         [Route($"{nameof(RelatedProducts)}/{{productId}}/{{pageIndex}}/{{pageSize}}")]
         public virtual async Task<IActionResult> RelatedProducts(int productId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var model = await _relatedProductService.GetAllAsync(x => x.ProductId1 == productId, pageIndex, pageSize);
+            var model = await _relatedProductService
+                .GetAllAsync(x => x.ProductId1 == productId
+                , x => new RelatedProduct
+                {
+                    ProductId1 = x.ProductId1,
+                    ProductId2 = x.ProductId2,
+                    Product2 = x.Product2,
+                    Id = x.Id,
+                    DisplayOrder = x.DisplayOrder
+                }, pageIndex, pageSize);
             return Ok(new Tuple<IPagedList<RelatedProduct>, int>(model, model.TotalCount));
         }
 
