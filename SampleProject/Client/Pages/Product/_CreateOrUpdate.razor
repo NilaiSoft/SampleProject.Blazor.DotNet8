@@ -17,6 +17,15 @@
 </MudExpansionPanel>
 
 <MudExpansionPanel Text="Related products" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
+    <MudPaper Elevation="25">
+        <MudToolBar>
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Href="Product_Create" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Href="Product_Create" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Href="Product_Create" />
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Material.Outlined.MoreVert" Color="Color.Inherit" />
+        </MudToolBar>
+    </MudPaper>
     <MudDataGrid T="RelatedProductDto" Hover=true ServerData="LoadRelatedProducts" EditMode="DataGridEditMode.Cell"
                  SortMode="SortMode.Multiple"
                  Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
