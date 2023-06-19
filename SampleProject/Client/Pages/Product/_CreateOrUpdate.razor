@@ -22,8 +22,7 @@
                  SortMode="SortMode.Multiple"
                  Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
         <Columns>
-            <PropertyColumn Property="x => x.ProductId1" />
-            <PropertyColumn Property="x => x.ProductId2" />
+            <PropertyColumn Property="x => x.Product2.Name" />
         </Columns>
         <PagerContent>
             <MudDataGridPager T="RelatedProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
