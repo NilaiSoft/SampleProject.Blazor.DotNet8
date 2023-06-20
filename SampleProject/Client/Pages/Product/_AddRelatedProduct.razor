@@ -1,0 +1,11 @@
+﻿<MudDataGrid T="ProductDto" Hover=true ServerData="LoadServerData" ReadOnly="true"
+             SortMode="SortMode.Multiple" Bordered="true" Dense="true">
+    <Columns>
+        <PropertyColumn Property="x => x.Name" />
+        <PropertyColumn Property="x => x.ShortDescription" />
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="ProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
+    </PagerContent>
+</MudDataGrid>
+

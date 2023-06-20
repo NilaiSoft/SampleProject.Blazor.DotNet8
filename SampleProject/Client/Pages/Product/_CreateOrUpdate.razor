@@ -1,4 +1,6 @@
-﻿<MudExpansionPanel Text="Product Info" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
+﻿@inject IDialogService DialogService
+
+<MudExpansionPanel Text="Product Info" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
     <div class="mb-3 col-xl-5">
         <MudTextField @bind-Value="productVM.Name" Label="Name" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
     </div>
@@ -19,7 +21,7 @@
 <MudExpansionPanel Text="Related products" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
     <MudPaper Elevation="25">
         <MudToolBar>
-            <MudIconButton Icon="@Icons.Material.Outlined.Add" Href="Product_Create" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="ShowProductList" />
             <MudIconButton Icon="@Icons.Material.Outlined.Edit" Href="Product_Create" />
             <MudIconButton Icon="@Icons.Material.Outlined.Delete" Href="Product_Create" />
             <MudSpacer />

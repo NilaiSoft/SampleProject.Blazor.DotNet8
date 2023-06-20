@@ -38,5 +38,17 @@ namespace SampleProject.Client.Pages.Product
 
             return new GridData<RelatedProductDto>();
         }
+
+        private void ShowProductList()
+        {
+            var closeOnEscapeKey = new DialogOptions()
+            {
+                CloseOnEscapeKey = false,
+                CloseButton = true,
+                DisableBackdropClick = false
+            };
+
+            DialogService.ShowAsync<_AddRelatedProduct>("Select Product For Related", closeOnEscapeKey);
+        }
     }
 }
