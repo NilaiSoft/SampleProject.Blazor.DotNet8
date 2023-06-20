@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SampleProject.Server.Data;
 
 #nullable disable
 
-namespace SampleProject.Server.Data.Migrations
+namespace SampleProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230613050746_initProductRelated")]
-    partial class initProductRelated
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -352,15 +349,15 @@ namespace SampleProject.Server.Data.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductId1")
+                    b.Property<int>("ProductId1")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductId2")
+                    b.Property<int>("ProductId2")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId2");
 
                     b.ToTable("RelatedProducts");
                 });
@@ -483,11 +480,13 @@ namespace SampleProject.Server.Data.Migrations
 
             modelBuilder.Entity("SampleProject.Server.Data.RelatedProduct", b =>
                 {
-                    b.HasOne("SampleProject.Server.Data.Product", "Product1")
+                    b.HasOne("SampleProject.Server.Data.Product", "Product2")
                         .WithMany("RelatedProducts")
-                        .HasForeignKey("ProductId1");
+                        .HasForeignKey("ProductId2")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Product1");
+                    b.Navigation("Product2");
                 });
 
             modelBuilder.Entity("SampleProject.Server.Data.Product", b =>
