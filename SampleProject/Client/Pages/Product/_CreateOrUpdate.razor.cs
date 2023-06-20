@@ -45,7 +45,8 @@ namespace SampleProject.Client.Pages.Product
             {
                 CloseOnEscapeKey = false,
                 CloseButton = true,
-                DisableBackdropClick = false
+                DisableBackdropClick = false,
+                ClassBackground = "my-custom-class"
             };
 
             DialogService.ShowAsync<_AddRelatedProduct>("Select Product For Related", closeOnEscapeKey);

@@ -1,6 +1,4 @@
-﻿@inject IDialogService DialogService
-
-<MudExpansionPanel Text="Product Info" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
+﻿<MudExpansionPanel Text="Product Info" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
     <div class="mb-3 col-xl-5">
         <MudTextField @bind-Value="productVM.Name" Label="Name" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
     </div>
@@ -39,4 +37,10 @@
         </PagerContent>
     </MudDataGrid>
 </MudExpansionPanel>
+
+<style>
+    .my-custom-class {
+        backdrop-filter: blur(10px);
+    }
+</style>
 
