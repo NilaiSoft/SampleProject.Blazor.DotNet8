@@ -15,6 +15,9 @@ namespace SampleProject.Client.Pages.Product
 
         private async Task<GridData<RelatedProductDto>> LoadRelatedProducts(GridState<RelatedProductDto> state)
         {
+            if (productId == 0)
+                return new GridData<RelatedProductDto>();
+
             _relatedProductDtos = await _httpClient
                 .GetFromJsonAsync<Tuple<IList<RelatedProductDto>, int>>($"api/Product/RelatedProducts/{productId}/{state.Page}/{state.PageSize}");
 
