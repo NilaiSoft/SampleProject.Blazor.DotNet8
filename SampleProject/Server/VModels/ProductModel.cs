@@ -20,6 +20,6 @@
         public bool ShowOnHomepage { get; set; }
         public bool Enable { get; set; }
         public bool Deleted { get; set; }
-        public ICollection<RelatedProduct>? RelatedProducts { get; set; }
+        //public ICollection<RelatedProduct>? RelatedProducts { get; set; }
     }
 }

@@ -45,7 +45,12 @@ namespace SampleProject.Client.Pages.Product
 
             foreach (var item in products)
             {
-                rp.Add(new RelatedProductDto { Product2 = item, ProductId1 = ProductId1 });
+                rp.Add(new RelatedProductDto 
+                { 
+                    Product2 = item,
+                    ProductId1 = ProductId1,
+                    DisplayOrder = 0
+                });
             }
 
             var responce = await _httpClient.PostAsJsonAsync("api/Product/RelatedCreate", rp);

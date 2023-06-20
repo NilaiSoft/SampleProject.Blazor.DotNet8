@@ -18,7 +18,9 @@ namespace SampleProjects.Server.Services
         {
             product = (await _entityRepository.AddAsync(product)).Entity;
 
-            return await _entityRepository.SaveChangesAsync();
+            await _entityRepository.SaveChangesAsync();
+
+            return product.Id;
         }
     }
 }

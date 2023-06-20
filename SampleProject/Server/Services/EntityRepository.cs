@@ -24,13 +24,15 @@ namespace SampleProjects.Server.Services
         public async Task<int> AddAndSaveChangesAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return entity.Id;
         }
 
         public async Task<int> AddRangeAndSaveChangesAsync(IList<TEntity> entitys)
         {
             await _dbSet.AddRangeAsync(entitys);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return entitys.Count;
         }
 
         public async Task<int> SaveChangesAsync()
