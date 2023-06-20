@@ -1,5 +1,6 @@
-﻿<MudDataGrid T="ProductDto" Hover=true ServerData="LoadServerData" ReadOnly="true"
-             SortMode="SortMode.Multiple" Bordered="true" Dense="true">
+﻿<MudDataGrid T="ProductDto" Hover=true MultiSelection=true Hideable=true ServerData="LoadServerData" ReadOnly="true"
+             SortMode="SortMode.Multiple" SelectedItemsChanged="@SelectedItemsChanged"
+             Bordered="true" Dense="true">
     <Columns>
         <SelectColumn T="ProductDto" ShowInFooter=false />
         <PropertyColumn Property="x => x.Name" />

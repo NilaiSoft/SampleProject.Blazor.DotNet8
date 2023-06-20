@@ -15,11 +15,14 @@ using Microsoft.JSInterop;
 using MudBlazor;
 using SampleProject.Shared.Dtos;
 using SampleProjects.Shared.Dtos;
+using static MudBlazor.CategoryTypes;
+using System.Text.Json;
 
 namespace SampleProject.Client.Pages.Product
 {
     public partial class _AddRelatedProduct
     {
+        private List<ProductDto> productIds = new();
         private async Task<GridData<ProductDto>> LoadServerData(GridState<ProductDto> state)
         {
             var _productDtos = await _httpClient
@@ -41,6 +44,11 @@ namespace SampleProject.Client.Pages.Product
             }
 
             return new GridData<ProductDto>();
+        }
+
+        private void SelectedItemsChanged(HashSet<ProductDto> items)
+        {
+
         }
     }
 }
