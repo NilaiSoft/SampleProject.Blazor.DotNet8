@@ -1,28 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
-using Microsoft.JSInterop;
-using MudBlazor;
 using SampleProject.Shared.Dtos;
-using SampleProjects.Shared.Dtos;
-using static MudBlazor.CategoryTypes;
-using System.Text.Json;
+using SampleProject.Shared.ViewModels.Product;
+using SampleProjects.Shared.ViewModels.Product;
+using System.Net.Http.Headers;
 
 namespace SampleProject.Client.Pages.Product
 {
     public partial class _AddRelatedProduct
     {
-        private List<ProductDto> productIds = new();
+        private List<ProductDto> products = new();
+
+        [Parameter]
+        public int ProductId1 { get; set; }
         private async Task<GridData<ProductDto>> LoadServerData(GridState<ProductDto> state)
         {
             var _productDtos = await _httpClient
@@ -48,7 +36,21 @@ namespace SampleProject.Client.Pages.Product
 
         private void SelectedItemsChanged(HashSet<ProductDto> items)
         {
+            products = items.Select(x => x).ToList();
+        }
 
+        private async Task btnSave()
+        {
+            var rp = new List<RelatedProductDto>();
+
+            foreach (var item in products)
+            {
+                rp.Add(new RelatedProductDto { Product2 = item, ProductId1 = ProductId1 });
+            }
+
+            var responce = await _httpClient.PostAsJsonAsync("api/Product/RelatedCreate", rp);
+            if (responce.IsSuccessStatusCode)
+                _navigationManager.NavigateTo("Product/Index");
         }
     }
 }

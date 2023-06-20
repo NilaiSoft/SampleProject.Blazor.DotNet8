@@ -49,7 +49,10 @@ namespace SampleProject.Client.Pages.Product
                 ClassBackground = "my-custom-class"
             };
 
-            DialogService.ShowAsync<_AddRelatedProduct>("Select Product For Related", closeOnEscapeKey);
+            var prm = new DialogParameters();
+            prm.Add("ProductId1", productId);
+
+            DialogService.ShowAsync<_AddRelatedProduct>("Select Product For Related", prm, closeOnEscapeKey);
         }
     }
 }

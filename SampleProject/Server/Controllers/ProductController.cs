@@ -72,5 +72,16 @@ namespace SampleProject.Server.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route(nameof(RelatedCreate))]
+        public virtual async Task<IActionResult> RelatedCreate(IList<RelatedProductModel> entitys)
+        {
+            var product = _mapper.Map<IList<RelatedProduct>>(entitys);
+
+            var result = await _relatedProductService.AddRangeAndSaveChangesAsync(product);
+
+            return Ok(result);
+        }
     }
 }
