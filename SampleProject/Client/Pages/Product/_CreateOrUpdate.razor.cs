@@ -1,6 +1,3 @@
-using SampleProject.Shared.Dtos;
-using SampleProjects.Shared.Dtos;
-
 namespace SampleProject.Client.Pages.Product
 {
     public partial class _CreateOrUpdate

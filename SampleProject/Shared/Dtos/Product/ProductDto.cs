@@ -1,6 +1,4 @@
-﻿using SampleProject.Shared.Dtos;
-
-namespace SampleProjects.Shared.Dtos
+﻿namespace SampleProject.Shared.Dtos.Product
 {
     public class ProductDto
     {

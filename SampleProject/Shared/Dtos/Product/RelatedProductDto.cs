@@ -1,8 +1,7 @@
-﻿using SampleProjects.Shared.Dtos;
-using SampleProjects.Shared.ViewModels.Product;
+﻿using SampleProjects.Shared.ViewModels.Product;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SampleProject.Shared.Dtos
+namespace SampleProject.Shared.Dtos.Product
 {
     public class RelatedProductDto
     {

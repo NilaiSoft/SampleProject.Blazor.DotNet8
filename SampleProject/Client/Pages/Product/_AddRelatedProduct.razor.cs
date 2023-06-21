@@ -1,5 +1,4 @@
 using SampleProject.Shared.Dtos;
-using SampleProject.Shared.Dtos.Product;
 using SampleProject.Shared.ViewModels.Product;
 using SampleProjects.Shared.ViewModels.Product;
 using System.Net.Http.Headers;
