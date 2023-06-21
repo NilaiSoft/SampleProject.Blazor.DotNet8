@@ -1,4 +1,5 @@
 using SampleProject.Shared.Dtos;
+using SampleProject.Shared.Dtos.Product;
 using SampleProject.Shared.ViewModels.Product;
 using SampleProjects.Shared.ViewModels.Product;
 using System.Net.Http.Headers;
@@ -41,21 +42,21 @@ namespace SampleProject.Client.Pages.Product
 
         private async Task btnSave()
         {
-            var rp = new List<RelatedProductDto>();
+            var rp = new List<RelatedProductDtoForCreateOrUpdate>();
 
             foreach (var item in products)
             {
-                rp.Add(new RelatedProductDto 
-                { 
-                    Product2 = item,
+                rp.Add(new RelatedProductDtoForCreateOrUpdate
+                {
                     ProductId1 = ProductId1,
+                    ProductId2 = item.Id,
                     DisplayOrder = 0
                 });
             }
 
             var responce = await _httpClient.PostAsJsonAsync("api/Product/RelatedCreate", rp);
             if (responce.IsSuccessStatusCode)
-                _navigationManager.NavigateTo("Product/Index");
+                _navigationManager.NavigateTo($"Product/Edit/{ProductId1}");
         }
     }
 }
