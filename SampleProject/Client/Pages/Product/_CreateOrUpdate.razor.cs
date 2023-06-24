@@ -1,3 +1,5 @@
+using static MudBlazor.CategoryTypes;
+
 namespace SampleProject.Client.Pages.Product
 {
     public partial class _CreateOrUpdate
@@ -7,6 +9,8 @@ namespace SampleProject.Client.Pages.Product
 
         [Parameter]
         public int productId { get; set; }
+
+        MudDataGrid<RelatedProductDto> grdRelatedProduct;
 
         private Tuple<IList<RelatedProductDto>, int>? _relatedProductDtos;
 
@@ -54,7 +58,7 @@ namespace SampleProject.Client.Pages.Product
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-
+                await grdRelatedProduct.ReloadServerData();
             }
         }
     }
