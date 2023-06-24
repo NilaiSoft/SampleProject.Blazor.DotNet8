@@ -39,6 +39,10 @@ namespace SampleProject.Client.Pages.Product
             products = items.Select(x => x).ToList();
         }
 
+        [CascadingParameter]
+        private MudDialogInstance MudDialog { get; set; } = default!;
+
+
         private async Task btnSave()
         {
             var rp = new List<RelatedProductDtoForCreateOrUpdate>();
@@ -55,7 +59,9 @@ namespace SampleProject.Client.Pages.Product
 
             var responce = await _httpClient.PostAsJsonAsync("api/Product/RelatedCreate", rp);
             if (responce.IsSuccessStatusCode)
-                _navigationManager.NavigateTo($"Product/Edit/{ProductId1}");
+            {
+                MudDialog.Close(DialogResult.Ok("Ehsan"));
+            }
         }
     }
 }

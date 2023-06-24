@@ -36,7 +36,7 @@ namespace SampleProject.Client.Pages.Product
             return new GridData<RelatedProductDto>();
         }
 
-        private void ShowProductList()
+        private async void ShowProductList()
         {
             var closeOnEscapeKey = new DialogOptions()
             {
@@ -49,7 +49,8 @@ namespace SampleProject.Client.Pages.Product
             var prm = new DialogParameters();
             prm.Add("ProductId1", productId);
 
-            DialogService.ShowAsync<_AddRelatedProduct>("Select Product For Related", prm, closeOnEscapeKey);
+            var dialog = await DialogService.ShowAsync<_AddRelatedProduct>("Select Product For Related", prm, closeOnEscapeKey);
+            var result = await dialog.Result;
         }
     }
 }
