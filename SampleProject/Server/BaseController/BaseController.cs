@@ -36,7 +36,7 @@ namespace SampleProject.Server.BaseController
 
         [HttpPost]
         [Route(nameof(Create))]
-        public virtual async Task<IActionResult> Create(TVModel entity)
+        public virtual async Task<IActionResult> CreateAsync(TVModel entity)
         {
             var model = _mapper.Map<TEntity>(entity);
 
@@ -46,8 +46,8 @@ namespace SampleProject.Server.BaseController
         }
 
         [HttpGet]
-        [Route($"{nameof(Edit)}/{{id}}")]
-        public virtual async Task<IActionResult> Edit(int id)
+        [Route($"{nameof(EditAsync)}/{{id}}")]
+        public virtual async Task<IActionResult> EditAsync(int id)
         {
             var model = await _repository.FindAsync(x => x.Id == id);
 
@@ -55,16 +55,16 @@ namespace SampleProject.Server.BaseController
         }
 
         [HttpPost]
-        [Route(nameof(Edit))]
-        public virtual async Task<IActionResult> Edit(TVModel entity)
+        [Route(nameof(EditAsync))]
+        public virtual async Task<IActionResult> EditAsync(TVModel entity)
         {
             var model = _mapper.Map<TEntity>(entity);
             var result = await _repository.EditAsync(model);
             return Ok(result);
         }
 
-        [HttpDelete($"{nameof(Delete)}/{{id}}")]
-        public virtual async Task<IActionResult> Delete(int id)
+        [HttpDelete($"{nameof(DeleteAsync)}/{{id}}")]
+        public virtual async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _repository.DeleteAsync(x => x.Id == id);
             return Ok(result);

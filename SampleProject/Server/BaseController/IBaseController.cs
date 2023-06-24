@@ -10,13 +10,13 @@ namespace SampleProject.Server.BaseController
         Task<IActionResult> Create();
 
         [HttpPost]
-        Task<IActionResult> Create(TVModel entity);
-        Task<IActionResult> Edit(int id);
+        Task<IActionResult> CreateAsync(TVModel entity);
+        Task<IActionResult> EditAsync(int id);
 
         [HttpPost]
-        Task<IActionResult> Edit(TVModel entity);
+        Task<IActionResult> EditAsync(TVModel entity);
 
-        Task<IActionResult> Delete(int id);
+        Task<IActionResult> DeleteAsync(int id);
 
         Task<IActionResult> Details(int id);
     }

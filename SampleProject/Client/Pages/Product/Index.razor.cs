@@ -25,7 +25,7 @@ public partial class Index
             if (result.IsSuccessStatusCode)
             {
                 //productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
-                _navigationManager.NavigateTo("Product/Index");
+                StateHasChanged(); // Refreshes the MudGrid component
             }
         }
     }

@@ -54,8 +54,8 @@ namespace SampleProject.Server.Controllers
         }
 
         [HttpGet]
-        [Route($"{nameof(Edit)}/{{id}}")]
-        public override async Task<IActionResult> Edit(int id)
+        [Route($"{nameof(EditAsync)}/{{id}}")]
+        public override async Task<IActionResult> EditAsync(int id)
         {
             var model = await _productService.FindAsync(id);
 
@@ -64,7 +64,7 @@ namespace SampleProject.Server.Controllers
 
         [HttpPost]
         [Route(nameof(Create))]
-        public override async Task<IActionResult> Create(ProductModel entity)
+        public override async Task<IActionResult> CreateAsync(ProductModel entity)
         {
             var product = _mapper.Map<Product>(entity);
 
@@ -81,6 +81,13 @@ namespace SampleProject.Server.Controllers
 
             var result = await _relatedProductService.AddRangeAndSaveChangesAsync(product);
 
+            return Ok(result);
+        }
+
+        [HttpDelete($"{nameof(DeleteAsync)}/{{id}}")]
+        public override async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _productService.DeleteAsync(x => x.Id == id);
             return Ok(result);
         }
     }
