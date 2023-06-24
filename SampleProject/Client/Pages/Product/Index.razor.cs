@@ -1,6 +1,7 @@
 namespace SampleProject.Client.Pages.Product;
 public partial class Index
 {
+    private MudDataGrid<ProductDto> grdProducts;
     private Tuple<IList<ProductDto>, int>? _productDtos;
     private bool _hidePosition;
     private bool _loading;
@@ -24,8 +25,7 @@ public partial class Index
             var result = await _httpClient.DeleteAsync($"api/Product/DeleteAsync/{id}");
             if (result.IsSuccessStatusCode)
             {
-                //productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
-                StateHasChanged(); // Refreshes the MudGrid component
+                await grdProducts.ReloadServerData();
             }
         }
     }

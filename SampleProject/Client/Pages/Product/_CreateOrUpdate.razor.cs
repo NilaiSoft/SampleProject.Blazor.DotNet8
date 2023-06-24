@@ -10,7 +10,7 @@ namespace SampleProject.Client.Pages.Product
         [Parameter]
         public int productId { get; set; }
 
-        MudDataGrid<RelatedProductDto> grdRelatedProduct;
+        MudDataGrid<RelatedProductDto> grdRelatedProducts;
 
         private Tuple<IList<RelatedProductDto>, int>? _relatedProductDtos;
 
@@ -58,7 +58,7 @@ namespace SampleProject.Client.Pages.Product
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                await grdRelatedProduct.ReloadServerData();
+                await grdRelatedProducts.ReloadServerData();
             }
         }
     }

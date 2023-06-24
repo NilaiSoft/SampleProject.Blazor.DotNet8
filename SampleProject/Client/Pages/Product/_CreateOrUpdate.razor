@@ -27,7 +27,7 @@
                 <MudIconButton Icon="@Icons.Material.Outlined.MoreVert" Color="Color.Inherit" />
             </MudToolBar>
         </MudPaper>
-        <MudDataGrid T="RelatedProductDto" @ref="@grdRelatedProduct" Hover=true ServerData="LoadRelatedProducts" EditMode="DataGridEditMode.Cell"
+        <MudDataGrid T="RelatedProductDto" @ref="grdRelatedProducts" Hover=true ServerData="LoadRelatedProducts" EditMode="DataGridEditMode.Cell"
                      SortMode="SortMode.Multiple"
                      Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
             <Columns>

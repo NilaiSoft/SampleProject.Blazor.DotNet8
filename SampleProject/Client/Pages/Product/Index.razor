@@ -28,7 +28,7 @@ else
                              AdornmentIcon="@Icons.Material.Filled.Search" />
         </MudExpansionPanel>
         <MudExpansionPanel Text="Data" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.GridView">
-            <MudDataGrid T="ProductDto" Hover=true ServerData="LoadServerData" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+            <MudDataGrid T="ProductDto" @ref="grdProducts" Hover=true ServerData="LoadServerData" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
                          StartedEditingItem="@StartedEditingItem" SortMode="SortMode.Multiple"
                          QuickFilter="_quickFilter"
                          CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
