@@ -8,12 +8,12 @@ public partial class Edit
 
     protected async override Task OnInitializedAsync()
     {
-        productVM = await _httpClient.GetFromJsonAsync<ProductVM>($"api/Product/Edit/{Id}");
+        productVM = await _httpClient.GetFromJsonAsync<ProductVM>($"api/Product/EditAsync/{Id}");
     }
 
     public async Task EditData()
     {
-        var responce = await _httpClient.PostAsJsonAsync("api/Product/Edit", productVM);
+        var responce = await _httpClient.PostAsJsonAsync("api/Product/EditAsync", productVM);
         if (responce.IsSuccessStatusCode)
             _navigationManager.NavigateTo("Product/Index");
     }

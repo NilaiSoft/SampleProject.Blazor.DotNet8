@@ -21,7 +21,7 @@ public partial class Index
 
         if (dialogResult ?? false)
         {
-            var result = await _httpClient.DeleteAsync($"api/Product/Delete/{id}");
+            var result = await _httpClient.DeleteAsync($"api/Product/DeleteAsync/{id}");
             if (result.IsSuccessStatusCode)
             {
                 //productDtos = await _httpClient.GetFromJsonAsync<IList<ProductDto>>("api/Product/Index");
@@ -42,7 +42,7 @@ public partial class Index
 
     async void CommittedItemChanges(ProductDto item)
     {
-        var responce = await _httpClient.PostAsJsonAsync("api/Product/Edit", item);
+        var responce = await _httpClient.PostAsJsonAsync("api/Product/EditAsync", item);
         if (responce.IsSuccessStatusCode)
             _navigationManager.NavigateTo("Product/Index");
         //_events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
