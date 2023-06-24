@@ -58,10 +58,7 @@ namespace SampleProject.Client.Pages.Product
             }
 
             var responce = await _httpClient.PostAsJsonAsync("api/Product/RelatedCreate", rp);
-            if (responce.IsSuccessStatusCode)
-            {
-                MudDialog.Close(DialogResult.Ok("Ehsan"));
-            }
+            MudDialog.Close(DialogResult.Ok(responce));
         }
     }
 }
