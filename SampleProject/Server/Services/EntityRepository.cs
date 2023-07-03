@@ -15,6 +15,8 @@ namespace SampleProjects.Server.Services
         //private readonly IUnitOfWork _uow;
         internal DbSet<TEntity> _dbSet;
 
+        public virtual IQueryable<TEntity> Table => _dbSet;
+
         public EntityRepository(ApplicationDbContext context)
         {
             _context = context;
@@ -141,7 +143,6 @@ namespace SampleProjects.Server.Services
             return await entities.ToPagedListAsync(pageIndex, pageSize);
         }
 
-        public virtual IQueryable<TEntity> Table => _dbSet;
 
         public async Task<IPagedList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate, int pageIndex = 0, int pageSize = int.MaxValue)
         {

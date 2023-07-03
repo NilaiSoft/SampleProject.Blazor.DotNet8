@@ -6,6 +6,7 @@ namespace SampleProjects.Server.Services
 {
     public interface IEntityRepository<TEntity, TVModel> where TEntity : BaseEntity
     {
+        IQueryable<TEntity> Table { get; }
         Task<EntityEntry<TEntity>> AddAsync(TEntity item);
         Task AddRangeAsync(IList<TEntity> items);
         Task<int> AddAndSaveChangesAsync(TEntity entity);
@@ -32,9 +33,6 @@ namespace SampleProjects.Server.Services
             , Expression<Func<TEntity, TEntity>> _selectList, int pageIndex = 0, int pageSize = int.MaxValue);
         Task<IPagedList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate, int pageIndex = 0, int pageSize = int.MaxValue);
         Task<IPagedList<TEntity>> GetAllAsync(int pageIndex = 0, int pageSize = int.MaxValue);
-
-        IQueryable<TEntity> Table { get; }
-
         Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, TEntity>> selectList);
         Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> _pridicate);
         Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> predicate);
