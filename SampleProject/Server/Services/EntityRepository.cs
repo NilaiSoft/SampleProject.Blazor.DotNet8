@@ -141,6 +141,8 @@ namespace SampleProjects.Server.Services
             return await entities.ToPagedListAsync(pageIndex, pageSize);
         }
 
+        public virtual IQueryable<TEntity> Table => _dbSet;
+
         public async Task<IPagedList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate, int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = _dbSet.Where(_pridicate).AsQueryable();
