@@ -29,6 +29,7 @@ public partial class Index
             var result = await _httpClient.DeleteAsync($"api/Product/DeleteAsync/{id}");
             if (result.IsSuccessStatusCode)
             {
+                memoryCache.Remove("product-productList-0-10");
                 await grdProducts.ReloadServerData();
             }
         }
