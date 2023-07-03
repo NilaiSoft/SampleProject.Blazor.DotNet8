@@ -10,5 +10,6 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().Cre
 
 builder.Services.AddApiAuthorization();
 builder.Services.AddMudServices();
+builder.Services.AddMemoryCache();
 
 await builder.Build().RunAsync();
