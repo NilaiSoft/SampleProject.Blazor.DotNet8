@@ -29,7 +29,7 @@ public partial class Index
             var result = await _httpClient.DeleteAsync($"api/Product/DeleteAsync/{id}");
             if (result.IsSuccessStatusCode)
             {
-                memoryCache.Remove("product-productList-0-10");
+                _memoryCache.Remove("product-productList-0-10");
                 await grdProducts.ReloadServerData();
             }
         }
@@ -55,7 +55,7 @@ public partial class Index
 
     private async Task<GridData<ProductDto>> LoadServerData(GridState<ProductDto> state)
     {
-        if (memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
+        if (_memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
             , out _productDtos))
         {
             // Data successfully read from cache
@@ -63,14 +63,11 @@ public partial class Index
         }
         else
         {
-            // There was no data in the cache
-            // Perform calculations and calculate the new value
-            // Then insert the new value into the cache using memoryCache.Set
-            memoryCache.Set($"product-productList-{state.Page}-{state.PageSize}", await _httpClient
+            _memoryCache.Set($"product-productList-{state.Page}-{state.PageSize}", await _httpClient
                 .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}")
             , TimeSpan.FromMinutes(10));
 
-            memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
+            _memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
                 , out _productDtos);
         }
 
