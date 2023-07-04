@@ -55,21 +55,8 @@ public partial class Index
 
     private async Task<GridData<ProductDto>> LoadServerData(GridState<ProductDto> state)
     {
-        if (_memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
-            , out _productDtos))
-        {
-            // Data successfully read from cache
-            // use myValue
-        }
-        else
-        {
-            _memoryCache.Set($"product-productList-{state.Page}-{state.PageSize}", await _httpClient
-                .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}")
-            , TimeSpan.FromMinutes(10));
-
-            _memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
-                , out _productDtos);
-        }
+        _productDtos = await _httpClient
+            .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}");
 
 
         if (_productDtos is not null)

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using IdentityModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using SampleProject.Core;
 using SampleProject.Server.BaseController;
 using SampleProject.Server.Data;
+using SampleProject.Server.Services;
 using SampleProject.Server.VModels;
 using SampleProjects.Server.Services;
 
@@ -16,8 +18,11 @@ namespace SampleProject.Server.Controllers
         private readonly IProductService _productService;
         private readonly IRelatedProductService _relatedProductService;
         private readonly IMapper _mapper;
-        public ProductController(IEntityRepository<Product, ProductModel> repository, IMapper mapper, IProductService productService, IRelatedProductService relatedProductService)
-            : base(repository, mapper)
+        public ProductController(IEntityRepository<Product, ProductModel> repository
+            , IMapper mapper, IProductService productService
+            , IRelatedProductService relatedProductService
+            , ICacheManager<Product> memoryCache)
+            : base(repository, mapper, memoryCache)
         {
             _productService = productService;
             _relatedProductService = relatedProductService;

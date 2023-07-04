@@ -1,3 +1,5 @@
+using SampleProject.Server.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,6 +21,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRelatedProductService, RelatedProductService>();
 builder.Services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
+builder.Services.AddScoped(typeof(ICacheManager<>), typeof(CacheManager<>));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddIdentityServer()

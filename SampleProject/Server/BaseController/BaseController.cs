@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SampleProject.Core;
 using SampleProject.Server.Data;
+using SampleProject.Server.Services;
 using SampleProjects.Server.Services;
 
 namespace SampleProject.Server.BaseController
@@ -10,21 +11,34 @@ namespace SampleProject.Server.BaseController
             IBaseController<TEntity, TVModel> where TEntity : BaseEntity
     {
         private readonly IEntityRepository<TEntity, TVModel> _repository;
+        private readonly ICacheManager<TEntity> _cacheManager;
         private readonly IMapper _mapper;
 
-        public BaseController(IEntityRepository<TEntity, TVModel> repository, IMapper mapper)
+        public BaseController(IEntityRepository<TEntity, TVModel> repository, IMapper mapper, ICacheManager<TEntity> cacheManager)
         {
             _repository = repository;
             _mapper = mapper;
+            _cacheManager = cacheManager;
         }
+
+        IPagedList<TEntity> entities;
 
         [HttpGet]
         [Route($"{nameof(Index)}/{{pageIndex}}/{{pageSize}}")]
         public virtual async Task<IActionResult> Index(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var model = await _repository.GetAllAsync(pageIndex, pageSize);
+            //Func<Task<IPagedList<TEntity>>>
+            var myDelegate = () =>
+            {
+                // Your async logic here
+                var someEntity = _repository.GetAllAsync(pageIndex, pageSize).Result;
+                return someEntity;
+            };
+
+            _cacheManager.Get("productList", myDelegate, out entities);
+            //var model = await _repository.GetAllAsync(pageIndex, pageSize);
             //var model = _mapper.Map<IList<TVModel>>(entity);
-            return Ok(new Tuple<IPagedList<TEntity>, int>(model, model.TotalCount));
+            return Ok(new Tuple<IPagedList<TEntity>, int>(entities, entities.TotalCount));
         }
 
         [HttpGet]
