@@ -29,9 +29,8 @@ namespace SampleProject.Server.BaseController
         {
             var acquire = () =>
             {
-                // Your async logic here
-                var someEntity = _repository.GetAllAsync(pageIndex, pageSize).Result;
-                return someEntity;
+                var dataList = _repository.GetAllAsync(pageIndex, pageSize).Result;
+                return dataList;
             };
 
             _cacheManager.Get("productList", acquire, out entities);
