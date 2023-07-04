@@ -35,8 +35,6 @@ namespace SampleProject.Server.BaseController
 
             var model = await _cacheManager.GetAsync($"productList-{pageIndex}-{pageSize}", acquire);
 
-            //var model = await _repository.GetAllAsync(pageIndex, pageSize);
-            //var model = _mapper.Map<IList<TVModel>>(entity);
             return Ok(new Tuple<IPagedList<TEntity>, int>(model, model.TotalCount));
         }
 
