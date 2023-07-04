@@ -23,14 +23,12 @@ namespace SampleProject.Server.BaseController
         [Route($"{nameof(Index)}/{{pageIndex}}/{{pageSize}}")]
         public virtual async Task<IActionResult> Index(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var acquire = async Task<IPagedList<TEntity>> () =>
-            {
-                var dataList = await _repository.GetAllAsync(pageIndex, pageSize);
-                return dataList;
-            };
+            var model = await _cacheManager.GetAsync($"productList-{pageIndex}-{pageSize}"
+                , async Task<IPagedList<TEntity>> () =>
+                {
+                    return await _repository.GetAllAsync(pageIndex, pageSize);
+                });
 
-            var model = await _cacheManager.GetAsync($"productList-{pageIndex}-{pageSize}", acquire);
-            
             return Ok(model.ToPagedList());
         }
 
