@@ -45,5 +45,9 @@ namespace SampleProject.Server.Services
             return result;
         }
 
+        public void Remove(string key)
+        {
+            _memoryCache.Remove(key);
+        }
     }
 }

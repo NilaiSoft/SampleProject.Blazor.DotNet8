@@ -23,7 +23,7 @@ namespace SampleProject.Server.BaseController
         [Route($"{nameof(Index)}/{{pageIndex}}/{{pageSize}}")]
         public virtual async Task<IActionResult> Index(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var model = await _cacheManager.GetAsync($"productList-{pageIndex}-{pageSize}"
+            var model = await _cacheManager.GetAsync($"productList-index-{pageIndex}-{pageSize}"
                 , async Task<IPagedList<TEntity>> () =>
                 {
                     return await _repository.GetAllAsync(pageIndex, pageSize);
@@ -65,6 +65,7 @@ namespace SampleProject.Server.BaseController
         {
             var model = _mapper.Map<TEntity>(entity);
             var result = await _repository.EditAsync(model);
+            _cacheManager.Remove("productList-index-0-10");
             return Ok(result);
         }
 
@@ -72,6 +73,9 @@ namespace SampleProject.Server.BaseController
         public virtual async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _repository.DeleteAsync(x => x.Id == id);
+
+            _cacheManager.Remove("productList-index-0-10");
+
             return Ok(result);
         }
 
