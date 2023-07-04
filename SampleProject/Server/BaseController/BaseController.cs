@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 using SampleProject.Core;
 using SampleProject.Server.Data;
 using SampleProject.Server.Services;
@@ -13,7 +14,6 @@ namespace SampleProject.Server.BaseController
         private readonly IEntityRepository<TEntity, TVModel> _repository;
         private readonly ICacheManager<TEntity> _cacheManager;
         private readonly IMapper _mapper;
-        private IPagedList<TEntity> entities;
 
         public BaseController(IEntityRepository<TEntity, TVModel> repository, IMapper mapper, ICacheManager<TEntity> cacheManager)
         {
@@ -27,17 +27,17 @@ namespace SampleProject.Server.BaseController
         [Route($"{nameof(Index)}/{{pageIndex}}/{{pageSize}}")]
         public virtual async Task<IActionResult> Index(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var acquire = () =>
+            var acquire = async Task<IPagedList<TEntity>> () =>
             {
-                var dataList = _repository.GetAllAsync(pageIndex, pageSize).Result;
+                var dataList = await _repository.GetAllAsync(pageIndex, pageSize);
                 return dataList;
             };
 
-            await Task.Run(() => _cacheManager.Get("productList", acquire, out entities));
+            var model = await _cacheManager.GetAsync($"productList-{pageIndex}-{pageSize}", acquire);
 
             //var model = await _repository.GetAllAsync(pageIndex, pageSize);
             //var model = _mapper.Map<IList<TVModel>>(entity);
-            return Ok(new Tuple<IPagedList<TEntity>, int>(entities, entities.TotalCount));
+            return Ok(new Tuple<IPagedList<TEntity>, int>(model, model.TotalCount));
         }
 
         [HttpGet]

@@ -4,6 +4,6 @@ namespace SampleProject.Server.Services
 {
     public interface ICacheManager<T>
     {
-        void Get(string key, Func<IPagedList<T>> acquire, out IPagedList<T> objects);
+        Task<IPagedList<T>> GetAsync<T>(string key, Func<Task<IPagedList<T>>> acquire);
     }
 }

@@ -2,6 +2,7 @@
 using Mono.TextTemplating;
 using SampleProject.Core;
 using SampleProject.Shared.Dtos.Product;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SampleProject.Server.Services
 {
@@ -13,20 +14,21 @@ namespace SampleProject.Server.Services
         {
             _memoryCache = memoryCache;
         }
-        public void Get(string key, Func<IPagedList<T>> acquire, out IPagedList<T> objects)
-        {
-            if (_memoryCache.TryGetValue(key, out objects))
-            {
-                // Data successfully read from cache
-                // use myValue
-            }
-            else
-            {
-                objects = acquire();
-                _memoryCache.Set(key, objects, TimeSpan.FromMinutes(10));
 
-                _memoryCache.TryGetValue(key, out objects);
+        public async Task<IPagedList<T>> GetAsync<T>(string key, Func<Task<IPagedList<T>>> acquire)
+        {
+            if (_memoryCache.TryGetValue(key, out IPagedList<T>? result))
+                return result;
+
+            result = await acquire();
+
+            if (result != null)
+            {
+                _memoryCache.Set(key, result);
             }
+
+            return result;
         }
+
     }
 }
