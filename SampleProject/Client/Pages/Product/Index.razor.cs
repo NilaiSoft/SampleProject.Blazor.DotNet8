@@ -58,6 +58,26 @@ public partial class Index
         _productDtos = await _httpClient
             .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}");
 
+        #region Cache Method
+    //    if (memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
+    //, out _productDtos))
+    //    {
+    //        // Data successfully read from cache
+    //        // use myValue
+    //    }
+    //    else
+    //    {
+    //        // There was no data in the cache
+    //        // Perform calculations and calculate the new value
+    //        // Then insert the new value into the cache using memoryCache.Set
+    //        memoryCache.Set($"product-productList-{state.Page}-{state.PageSize}", await _httpClient
+    //            .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}")
+    //        , TimeSpan.FromMinutes(10));
+
+    //        memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
+    //            , out _productDtos);
+    //    }
+        #endregion
 
         if (_productDtos is not null)
         {
