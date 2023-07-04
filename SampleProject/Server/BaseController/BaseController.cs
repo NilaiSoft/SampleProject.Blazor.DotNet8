@@ -33,7 +33,8 @@ namespace SampleProject.Server.BaseController
                 return dataList;
             };
 
-            _cacheManager.Get("productList", acquire, out entities);
+            await Task.Run(() => _cacheManager.Get("productList", acquire, out entities));
+
             //var model = await _repository.GetAllAsync(pageIndex, pageSize);
             //var model = _mapper.Map<IList<TVModel>>(entity);
             return Ok(new Tuple<IPagedList<TEntity>, int>(entities, entities.TotalCount));
