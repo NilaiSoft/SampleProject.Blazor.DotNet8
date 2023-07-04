@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
+﻿using Microsoft.AspNetCore.Mvc;
 using SampleProject.Core;
-using SampleProject.Server.Data;
 using SampleProject.Server.Services;
-using SampleProjects.Server.Services;
 
 namespace SampleProject.Server.BaseController
 {
@@ -34,8 +30,8 @@ namespace SampleProject.Server.BaseController
             };
 
             var model = await _cacheManager.GetAsync($"productList-{pageIndex}-{pageSize}", acquire);
-
-            return Ok(new Tuple<IPagedList<TEntity>, int>(model, model.TotalCount));
+            
+            return Ok(model.ToPagedList());
         }
 
         [HttpGet]
