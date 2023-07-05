@@ -2,7 +2,10 @@
 using Mono.TextTemplating;
 using SampleProject.Core;
 using SampleProject.Shared.Dtos.Product;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SampleProject.Server.Services
@@ -19,7 +22,9 @@ namespace SampleProject.Server.Services
         public async Task<IPagedList<T>> GetAsync<T>(string key, Func<Task<IPagedList<T>>> acquire)
         {
             if (_memoryCache.TryGetValue(key, out IPagedList<T>? result))
+            {
                 return result;
+            }
 
             result = await acquire();
 
@@ -28,6 +33,29 @@ namespace SampleProject.Server.Services
                 _memoryCache.Set(key, result);
             }
             return result;
+        }
+
+        public string GetCacheName(string key)
+        {
+            var coherentState = typeof(MemoryCache).GetField("_coherentState", BindingFlags.NonPublic | BindingFlags.Instance);
+            var coherentStateValue = coherentState?.GetValue(_memoryCache);
+            var entriesCollection = coherentStateValue?.GetType().GetProperty("EntriesCollection", BindingFlags.NonPublic | BindingFlags.Instance);
+            var entriesCollectionValue = entriesCollection?.GetValue(coherentStateValue) as ICollection;
+            var tets = entriesCollectionValue?.GetType().GetProperties().ToList();
+            var keys = new List<string>();
+            if (entriesCollectionValue != null)
+            {
+                foreach (var item in entriesCollectionValue)
+                {
+                    var methodInfo = item.GetType().GetProperty("Key");
+
+                    var val = methodInfo?.GetValue(item);
+
+                    keys?.Add(val?.ToString());
+                }
+            }
+
+            return keys.FirstOrDefault(x => x.StartsWith(key)) ?? "";
         }
 
         public async Task<IList<T>> GetAsync<T>(string key, Func<Task<IList<T>>> acquire)

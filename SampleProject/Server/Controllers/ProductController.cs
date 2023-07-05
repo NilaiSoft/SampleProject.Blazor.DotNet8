@@ -18,6 +18,7 @@ namespace SampleProject.Server.Controllers
         private readonly IProductService _productService;
         private readonly IRelatedProductService _relatedProductService;
         private readonly IMapper _mapper;
+
         public ProductController(IEntityRepository<Product, ProductModel> repository
             , IMapper mapper, IProductService productService
             , IRelatedProductService relatedProductService
@@ -93,6 +94,10 @@ namespace SampleProject.Server.Controllers
         public override async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _productService.DeleteAsync(x => x.Id == id);
+
+            var cacheKey = _cacheManager.GetCacheName($"{(nameof(Product)).ToLower()}List-index-");
+            _cacheManager.Remove(cacheKey);
+
             return Ok(result);
         }
     }

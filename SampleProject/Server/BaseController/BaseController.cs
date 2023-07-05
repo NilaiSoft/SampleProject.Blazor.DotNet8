@@ -8,7 +8,7 @@ namespace SampleProject.Server.BaseController
             IBaseController<TEntity, TVModel> where TEntity : BaseEntity
     {
         private readonly IEntityRepository<TEntity, TVModel> _repository;
-        private readonly ICacheManager<TEntity> _cacheManager;
+        public readonly ICacheManager<TEntity> _cacheManager;
         private readonly IMapper _mapper;
 
         public BaseController(IEntityRepository<TEntity, TVModel> repository, IMapper mapper, ICacheManager<TEntity> cacheManager)
@@ -47,6 +47,9 @@ namespace SampleProject.Server.BaseController
 
             var result = await _repository.AddAndSaveChangesAsync(model);
 
+            var cacheKey = _cacheManager.GetCacheName($"{(nameof(TEntity)).ToLower()}List-index-");
+            _cacheManager.Remove(cacheKey);
+
             return Json(result);
         }
 
@@ -65,7 +68,10 @@ namespace SampleProject.Server.BaseController
         {
             var model = _mapper.Map<TEntity>(entity);
             var result = await _repository.EditAsync(model);
-            _cacheManager.Remove("productList-index-0-10");
+
+            var cacheKey = _cacheManager.GetCacheName($"{(nameof(TEntity)).ToLower()}List-index-");
+            _cacheManager.Remove(cacheKey);
+
             return Ok(result);
         }
 
@@ -74,7 +80,8 @@ namespace SampleProject.Server.BaseController
         {
             var result = await _repository.DeleteAsync(x => x.Id == id);
 
-            _cacheManager.Remove("productList-index-0-10");
+            var cacheKey = _cacheManager.GetCacheName($"{(nameof(TEntity)).ToLower()}List-index-");
+            _cacheManager.Remove(cacheKey);
 
             return Ok(result);
         }
