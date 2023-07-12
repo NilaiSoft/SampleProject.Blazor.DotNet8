@@ -32,8 +32,10 @@ else
                          StartedEditingItem="@StartedEditingItem" SortMode="SortMode.Multiple"
                          QuickFilter="_quickFilter"
                          CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
-                         Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
+                         Bordered="true" Dense="true">
+                @* EditTrigger="(DataGridEditTrigger.OnRowClick)"> *@
                 <Columns>
+                    <HierarchyColumn T="ProductDto" />
                     <PropertyColumn Property="x => x.Name" />
                     <PropertyColumn Property="x => x.ShortDescription" />
                     <PropertyColumn Property="x => x.FullDescription" />
@@ -51,6 +53,31 @@ else
                         </CellTemplate>
                     </TemplateColumn>
                 </Columns>
+
+                <ChildRowContent>
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudDataGrid T="RelatedProductDto"
+                                         RowClick="RowClick(context.Item.Id)"
+                                         Hover=true ServerData="LoadRelatedProducts" EditMode="DataGridEditMode.Cell"
+                                         SortMode="SortMode.Multiple"
+                                         Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
+                                <Columns>
+                                    <PropertyColumn Property="x => x.Product2.Name" />
+                                </Columns>
+                                <PagerContent>
+                                    <MudDataGridPager T="RelatedProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
+                                </PagerContent>
+                            </MudDataGrid>
+                        </MudCardContent>
+                    </MudCard>
+                </ChildRowContent>
+
                 <PagerContent>
                     <MudDataGridPager T="ProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
                 </PagerContent>

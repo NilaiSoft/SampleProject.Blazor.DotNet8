@@ -1,10 +1,13 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using SampleProject.Shared.Dtos.Product;
+using SampleProjects.Shared.ViewModels.Product;
 using System;
 
 namespace SampleProject.Client.Pages.Product;
 public partial class Index
 {
+    private Tuple<IList<RelatedProductDto>, int>? _relatedProductDtos;
+    public int productId { get; set; }
     private MudDataGrid<ProductDto> grdProducts;
     private Tuple<IList<ProductDto>, int>? _productDtos;
     private bool _hidePosition;
@@ -58,24 +61,24 @@ public partial class Index
             .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}");
 
         #region Cache Method
-    //    if (memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
-    //, out _productDtos))
-    //    {
-    //        // Data successfully read from cache
-    //        // use myValue
-    //    }
-    //    else
-    //    {
-    //        // There was no data in the cache
-    //        // Perform calculations and calculate the new value
-    //        // Then insert the new value into the cache using memoryCache.Set
-    //        memoryCache.Set($"product-productList-{state.Page}-{state.PageSize}", await _httpClient
-    //            .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}")
-    //        , TimeSpan.FromMinutes(10));
+        //    if (memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
+        //, out _productDtos))
+        //    {
+        //        // Data successfully read from cache
+        //        // use myValue
+        //    }
+        //    else
+        //    {
+        //        // There was no data in the cache
+        //        // Perform calculations and calculate the new value
+        //        // Then insert the new value into the cache using memoryCache.Set
+        //        memoryCache.Set($"product-productList-{state.Page}-{state.PageSize}", await _httpClient
+        //            .GetFromJsonAsync<Tuple<IList<ProductDto>, int>>($"api/Product/Index/{state.Page}/{state.PageSize}")
+        //        , TimeSpan.FromMinutes(10));
 
-    //        memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
-    //            , out _productDtos);
-    //    }
+        //        memoryCache.TryGetValue($"product-productList-{state.Page}-{state.PageSize}"
+        //            , out _productDtos);
+        //    }
         #endregion
 
         if (_productDtos is not null)
@@ -119,5 +122,34 @@ public partial class Index
     private void Edit(int Id)
     {
         _navigationManager.NavigateTo($"Product/Edit/{Id}");
+    }
+
+    public EventCallback RowClick(int id)
+    {
+        productId = id;
+        return new EventCallback();
+    }
+
+    private async Task<GridData<RelatedProductDto>> LoadRelatedProducts(GridState<RelatedProductDto> state)
+    {
+        _relatedProductDtos = await _httpClient
+            .GetFromJsonAsync<Tuple<IList<RelatedProductDto>, int>>($"api/Product/RelatedProducts/{productId}/{state.Page}/{state.PageSize}");
+
+        if (_relatedProductDtos is not null)
+        {
+            var data = _relatedProductDtos.Item1;
+
+            data = data.OrderBySortDefinitions(state).ToList();
+
+            GridData<RelatedProductDto> model = new()
+            {
+                Items = data,
+                TotalItems = _relatedProductDtos.Item2
+            };
+
+            return model;
+        }
+
+        return new GridData<RelatedProductDto>();
     }
 }
