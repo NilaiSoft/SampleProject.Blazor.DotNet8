@@ -1,12 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Mono.TextTemplating;
 using SampleProject.Core;
-using SampleProject.Shared.Dtos.Product;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SampleProject.Server.Services
 {
