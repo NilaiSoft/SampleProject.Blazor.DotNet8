@@ -1,9 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using SampleProject.Shared.Dtos.Product;
-using SampleProjects.Shared.ViewModels.Product;
-using System;
-
-namespace SampleProject.Client.Pages.Product;
+﻿namespace SampleProject.Client.Pages.Product;
 public partial class Index
 {
     private Tuple<IList<RelatedProductDto>, int>? _relatedProductDtos;
