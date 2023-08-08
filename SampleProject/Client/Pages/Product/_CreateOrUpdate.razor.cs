@@ -53,7 +53,7 @@ namespace SampleProject.Client.Pages.Product
             var prm = new DialogParameters();
             prm.Add("ProductId1", productId);
 
-            var result = await (await DialogService.ShowAsync<_AddRelatedProduct>("Select Product For Related", prm, closeOnEscapeKey))
+            var result = await (await _dialogService.ShowAsync<_AddRelatedProduct>("Select Product For Related", prm, closeOnEscapeKey))
                 .GetReturnValueAsync<HttpResponseMessage>();
 
             if (result.StatusCode == System.Net.HttpStatusCode.OK)
