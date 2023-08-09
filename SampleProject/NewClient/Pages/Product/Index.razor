@@ -1,0 +1,94 @@
+﻿@page "/Product/Index"
+@using SampleProject.Shared.Dtos.Product;
+
+<h3>Product</h3>
+
+@if (false)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <MudPaper Elevation="25">
+        <MudToolBar>
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Href="Product/Create" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Href="Product_Create" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Href="Product_Create" />
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Material.Outlined.MoreVert" Color="Color.Inherit" />
+        </MudToolBar>
+    </MudPaper>
+
+    <MudExpansionPanels MultiExpansion="true">
+        <MudExpansionPanel Text="Search" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.SearchOff">
+            <MudAutocomplete T="string"
+                             Label="US States"
+                             SearchFuncWithCancel="@SearchProduct"
+                             Variant="Variant.Outlined"
+                             ShowProgressIndicator="true"
+                             AdornmentIcon="@Icons.Material.Filled.Search" />
+        </MudExpansionPanel>
+        <MudExpansionPanel Text="Data" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.GridView">
+            <MudDataGrid T="ProductDto" @ref="grdProducts" Hover=true ServerData="LoadServerData" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+                         StartedEditingItem="@StartedEditingItem" SortMode="SortMode.Multiple"
+                         QuickFilter="_quickFilter"
+                         CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
+                         Bordered="true" Dense="true">
+                @* EditTrigger="(DataGridEditTrigger.OnRowClick)"> *@
+                <Columns>
+                    <HierarchyColumn T="ProductDto" />
+                    <PropertyColumn Property="x => x.Name" />
+                    <PropertyColumn Property="x => x.ShortDescription" />
+                    <PropertyColumn Property="x => x.FullDescription" />
+                    <PropertyColumn Property="x => x.AdminComment" />
+                    <PropertyColumn Property="x => x.Enable">
+                        <EditTemplate>
+                            <MudSwitch @bind-Checked="@context.Item.Enable" Color="Color.Primary"></MudSwitch>
+                        </EditTemplate>
+                    </PropertyColumn>
+                    <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
+                        <CellTemplate>
+                            <MudIconButton Variant=Variant.Filled Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
+                            <MudIconButton Variant=Variant.Filled OnClick="@(() => Edit(@context.Item.Id))" Color="@Color.Default" Icon="@Icons.Material.Filled.Edit" />
+                            <MudIconButton Variant=Variant.Filled OnClick="@(() => DeleteAsync(@context.Item.Id))" Color="@Color.Default" Icon="@Icons.Material.Filled.Delete" />
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+
+                <ChildRowContent>
+                    <MudCard>
+                        <MudCardHeader hidden="hidden">
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudDataGrid T="RelatedProductDto"
+                                         RowClick="RowClick(context.Item.Id)"
+                                         Hover=true ServerData="LoadRelatedProducts" EditMode="DataGridEditMode.Cell"
+                                         SortMode="SortMode.Multiple"
+                                         Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
+                                <Columns>
+                                    <PropertyColumn Property="x => x.Product2.Name" />
+                                </Columns>
+                                <PagerContent>
+                                    <MudDataGridPager T="RelatedProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
+                                </PagerContent>
+                            </MudDataGrid>
+                        </MudCardContent>
+                    </MudCard>
+                </ChildRowContent>
+
+                <PagerContent>
+                    <MudDataGridPager T="ProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>
+                </PagerContent>
+            </MudDataGrid>
+        </MudExpansionPanel>
+    </MudExpansionPanels>
+}
+
+
+
+
+
+

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\SampleProject.Client.csproj" />
+    <ProjectReference Include="..\NewClient\SampleProject.NewClient.csproj" />
     <ProjectReference Include="..\SampleProject.Core\SampleProject.Core.csproj" />
     <ProjectReference Include="..\Shared\SampleProject.Shared.csproj" />
   </ItemGroup>
