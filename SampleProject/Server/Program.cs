@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using SampleProject.Server.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +37,29 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddMemoryCache();
 
+var jwtSettings = builder.Configuration.GetSection("JWTSettings");
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["validIssuer"],
+        ValidAudience = jwtSettings["validAudience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["securityKey"]))
+    };
+});
+
+builder.Services.AddControllers();
+
+
+
 
 var app = builder.Build();
 
@@ -60,11 +86,13 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseIdentityServer();
+app.UseAuthentication();
 app.UseAuthorization();
 
 
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
 
 app.Run();

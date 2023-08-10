@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Shared", "Sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Core", "SampleProject\SampleProject.Core\SampleProject.Core.csproj", "{285A3290-080F-4AEB-AFE1-49BD387C1F05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleProject.NewClient", "SampleProject\NewClient\SampleProject.NewClient.csproj", "{ABE7D14F-2501-4332-AE19-00A967B7F4F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.NewClient", "SampleProject\NewClient\SampleProject.NewClient.csproj", "{ABE7D14F-2501-4332-AE19-00A967B7F4F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
