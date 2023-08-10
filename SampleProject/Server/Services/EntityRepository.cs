@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SampleProject.Core;
 using SampleProject.Server.Data;
+using System.Collections;
 using System.Linq.Expressions;
 
 namespace SampleProjects.Server.Services
@@ -13,6 +15,8 @@ namespace SampleProjects.Server.Services
         //private readonly IUnitOfWork _uow;
         internal DbSet<TEntity> _dbSet;
 
+        public virtual IQueryable<TEntity> Table => _dbSet;
+
         public EntityRepository(ApplicationDbContext context)
         {
             _context = context;
@@ -22,13 +26,15 @@ namespace SampleProjects.Server.Services
         public async Task<int> AddAndSaveChangesAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return entity.Id;
         }
 
         public async Task<int> AddRangeAndSaveChangesAsync(IList<TEntity> entitys)
         {
             await _dbSet.AddRangeAsync(entitys);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return entitys.Count;
         }
 
         public async Task<int> SaveChangesAsync()
@@ -87,7 +93,18 @@ namespace SampleProjects.Server.Services
 
         public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> _pridicate)
         {
-            return await _dbSet.FindAsync(_pridicate);
+            return await _dbSet.FirstOrDefaultAsync(_pridicate);
+        }
+
+        public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> _pridicate
+            , Expression<Func<TEntity, TEntity>> expression)
+        {
+            return await _dbSet.Where(_pridicate).Select(expression).FirstOrDefaultAsync();
+        }
+
+        public async Task<TEntity?> FindAsync(int Id)
+        {
+            return await _dbSet.FindAsync(Id);
         }
 
         public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> _pridicate)
@@ -97,12 +114,16 @@ namespace SampleProjects.Server.Services
 
         public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate)
         {
-            var query = await _dbSet.Where(_pridicate).ToListAsync();
+            async Task<IList<TEntity>> getAllAsync()
+            {
+                var query = _dbSet.Where(_pridicate).AsQueryable();
+                return await AddDeletedFilter(query, false).ToListAsync();
+            }
 
-            return AddDeletedFilter(query, false).ToList();
+            return await getAllAsync();
         }
 
-        protected IEnumerable<TEntity> AddDeletedFilter(IList<TEntity> query, bool includeDeleted)
+        protected IQueryable<TEntity> AddDeletedFilter(IQueryable<TEntity> query, bool includeDeleted)
         {
             if (includeDeleted)
                 return query;
@@ -115,26 +136,46 @@ namespace SampleProjects.Server.Services
 
         public async Task<IPagedList<TEntity>> GetAllAsync(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            var query = await _dbSet.ToListAsync();
+            var query = _dbSet.AsQueryable();
 
-            var entities = AddDeletedFilter(query, false).ToList();
+            var entities = AddDeletedFilter(query, false);
 
-            return new PagedList<TEntity>(entities, pageIndex, pageSize);
+            return await entities.ToPagedListAsync(pageIndex, pageSize);
+        }
+
+
+        public async Task<IPagedList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate, int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            var query = _dbSet.Where(_pridicate).AsQueryable();
+
+            var entities = AddDeletedFilter(query, false);
+
+            return await entities.ToPagedListAsync(pageIndex, pageSize);
         }
 
         public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, TEntity>> expression)
         {
-            var query = await _dbSet.Select(expression).ToListAsync();
+            var query = _dbSet.Select(expression).AsQueryable();
 
-            return AddDeletedFilter(query, false).ToList();
+            return await AddDeletedFilter(query, false).ToListAsync();
         }
 
         public async Task<IList<TEntity>> GetAllAsync
             (Expression<Func<TEntity, bool>> _pridicate, Expression<Func<TEntity, TEntity>> _selectList)
         {
-            var query = await _dbSet.Where(_pridicate).Select(_selectList).ToListAsync();
+            var query = _dbSet.Where(_pridicate).Select(_selectList).AsQueryable();
 
-            return AddDeletedFilter(query, false).ToList();
+            return await AddDeletedFilter(query, false).ToListAsync();
+        }
+
+
+        public async Task<IPagedList<TEntity>> GetAllAsync
+            (Expression<Func<TEntity, bool>> _pridicate
+            , Expression<Func<TEntity, TEntity>> _selectList, int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            var query = _dbSet.Where(_pridicate).Select(_selectList).AsQueryable();
+
+            return await AddDeletedFilter(query, false).ToPagedListAsync(pageIndex, pageSize);
         }
 
         #region UpdateUseZEntity

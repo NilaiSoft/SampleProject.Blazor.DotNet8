@@ -1,11 +1,4 @@
-﻿using Duende.IdentityServer.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using SampleProject.Server.Models;
-using SampleProjects.Shared.ViewModels.Customer;
-
-namespace SampleProject.Server.Data
+﻿namespace SampleProject.Server.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
@@ -16,5 +9,6 @@ namespace SampleProject.Server.Data
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<RelatedProduct> RelatedProducts { get; set; }
     }
 }

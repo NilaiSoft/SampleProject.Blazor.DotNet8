@@ -43,5 +43,10 @@
         /// 
         /// </summary>
         public bool Deleted { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual ICollection<RelatedProduct> RelatedProducts { get; set; }
     }
 }
