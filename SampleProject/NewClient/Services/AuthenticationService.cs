@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using SampleProject.NewClient.AuthProviders;
 using SampleProject.Shared.Dtos.Authentication;
@@ -12,14 +13,16 @@ namespace SampleProject.NewClient.Services
     {
         private readonly HttpClient _client;
         private readonly JsonSerializerOptions _options;
-        private readonly AuthenticationStateProvider _authStateProvider;
+
+        [Inject]
+        public AuthenticationStateProvider _authStateProvider { get; set; }
+
         private readonly ILocalStorageService _localStorage;
 
-        public AuthenticationService(HttpClient client, AuthenticationStateProvider authStateProvider, ILocalStorageService localStorage)
+        public AuthenticationService(HttpClient client, ILocalStorageService localStorage)
         {
             _client = client;
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            _authStateProvider = authStateProvider;
             _localStorage = localStorage;
         }
 

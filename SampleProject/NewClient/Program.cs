@@ -21,11 +21,11 @@ builder.Services.AddHttpClient("SampleProject.ServerAPI", client => client.BaseA
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
-//builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("SampleProject.ServerAPI"));
 builder.Services.AddScoped<IDialogService, DialogService>();
 builder.Services.AddApiAuthorization();
 builder.Services.AddMudServices();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 await builder.Build().RunAsync();
