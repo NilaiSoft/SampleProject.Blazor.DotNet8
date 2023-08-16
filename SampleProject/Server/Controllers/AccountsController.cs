@@ -10,11 +10,11 @@ namespace SampleProject.Server.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _jwtSettings;
 
-        public AccountsController(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public AccountsController(UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
