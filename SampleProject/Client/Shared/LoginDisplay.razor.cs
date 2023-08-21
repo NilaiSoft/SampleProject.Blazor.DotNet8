@@ -16,9 +16,9 @@ using MudBlazor;
 using SampleProject.Shared.Dtos;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-using SampleProject.NewClient.Services;
+using SampleProject.Client.Services;
 
-namespace SampleProject.NewClient.Shared
+namespace SampleProject.Client.Shared
 {
     public partial class LoginDisplay
     {

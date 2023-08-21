@@ -1,8 +1,8 @@
 using global::Microsoft.AspNetCore.Components;
-using SampleProject.NewClient.Services;
+using SampleProject.Client.Services;
 using SampleProject.Shared.Dtos.Authentication;
 
-namespace SampleProject.NewClient.Pages.Accounts
+namespace SampleProject.Client.Pages.Accounts
 {
     public partial class Login
     {

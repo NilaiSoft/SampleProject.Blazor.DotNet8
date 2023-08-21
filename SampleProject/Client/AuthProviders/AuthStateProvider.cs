@@ -1,10 +1,10 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
-using SampleProject.NewClient.Features;
+using SampleProject.Client.Features;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 
-namespace SampleProject.NewClient.AuthProviders
+namespace SampleProject.Client.AuthProviders
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {

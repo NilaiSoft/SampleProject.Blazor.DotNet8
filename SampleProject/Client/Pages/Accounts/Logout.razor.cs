@@ -14,9 +14,9 @@ using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.JSInterop;
 using MudBlazor;
 using SampleProject.Shared.Dtos;
-using SampleProject.NewClient.Services;
+using SampleProject.Client.Services;
 
-namespace SampleProject.NewClient.Pages.Accounts
+namespace SampleProject.Client.Pages.Accounts
 {
     public partial class Logout
     {

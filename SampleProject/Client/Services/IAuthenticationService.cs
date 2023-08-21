@@ -1,6 +1,6 @@
 ﻿using SampleProject.Shared.Dtos.Authentication;
 
-namespace SampleProject.NewClient.Services
+namespace SampleProject.Client.Services
 {
     public interface IAuthenticationService
     {

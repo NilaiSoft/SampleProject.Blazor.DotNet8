@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using SampleProject.Client.Services;
 @inject NavigationManager Navigation
 
 <AuthorizeView>
@@ -9,13 +10,9 @@
     </Authorized>
     <NotAuthorized>
         <a href="authentication/register">Register</a>
-        <a href="authentication/login">Log in</a>
+        @* <a href="authentication/login">Log in</a> *@
+        <a href="/accounts/login">Log in</a>
     </NotAuthorized>
 </AuthorizeView>
 
-@code{
-    private void BeginLogOut()
-    {
-        Navigation.NavigateToLogout("authentication/logout");
-    }
-}
+

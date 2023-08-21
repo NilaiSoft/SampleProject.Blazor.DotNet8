@@ -1,4 +1,6 @@
-﻿<MudExpansionPanel Text="Product Info" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
+﻿@using SampleProject.Shared.Dtos.Product;
+@using SampleProjects.Shared.ViewModels.Product;
+<MudExpansionPanel Text="Product Info" IsInitiallyExpanded=true Icon="@Icons.Material.Filled.Info">
     <div class="mb-3 col-xl-5">
         <MudTextField @bind-Value="productVM.Name" Label="Name" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentColor="Color.Info" />
     </div>
@@ -45,4 +47,6 @@
         backdrop-filter: blur(10px);
     }
 </style>
+
+
 

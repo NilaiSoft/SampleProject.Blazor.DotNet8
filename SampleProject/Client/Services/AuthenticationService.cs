@@ -1,13 +1,13 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using SampleProject.NewClient.AuthProviders;
+using SampleProject.Client.AuthProviders;
 using SampleProject.Shared.Dtos.Authentication;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
-namespace SampleProject.NewClient.Services
+namespace SampleProject.Client.Services
 {
     public class AuthenticationService: IAuthenticationService
     {

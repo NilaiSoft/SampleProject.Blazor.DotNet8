@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text.Json;
 
-namespace SampleProject.NewClient.Features
+namespace SampleProject.Client.Features
 {
     public static class JwtParser
     {

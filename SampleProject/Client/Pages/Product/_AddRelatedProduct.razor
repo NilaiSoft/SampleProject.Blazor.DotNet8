@@ -1,4 +1,5 @@
-﻿<MudDataGrid T="ProductDto" Hover=true MultiSelection=true Hideable=true ServerData="LoadServerData" ReadOnly="true"
+﻿@using SampleProject.Shared.Dtos.Product;
+<MudDataGrid T="ProductDto" Hover=true MultiSelection=true Hideable=true ServerData="LoadServerData" ReadOnly="true"
              SortMode="SortMode.Multiple" SelectedItemsChanged="@SelectedItemsChanged"
              Bordered="true" Dense="true">
     <Columns>
@@ -16,4 +17,6 @@
                        ButtonType="ButtonType.Submit" />
     </footer>
 </MudPaper>
+
+
 
