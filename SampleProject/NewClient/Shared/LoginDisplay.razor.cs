@@ -28,7 +28,7 @@ namespace SampleProject.NewClient.Shared
         private async void BeginLogOut()
         {
             await _authenticationService.Logout();
-            Navigation.NavigateToLogout("authentication/logout");
+            //Navigation.NavigateToLogout("authentication/logout");
         }
     }
 }
