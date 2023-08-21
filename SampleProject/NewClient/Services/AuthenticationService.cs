@@ -19,11 +19,12 @@ namespace SampleProject.NewClient.Services
 
         private readonly ILocalStorageService _localStorage;
 
-        public AuthenticationService(HttpClient client, ILocalStorageService localStorage)
+        public AuthenticationService(HttpClient client, ILocalStorageService localStorage, AuthenticationStateProvider authStateProvider)
         {
             _client = client;
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             _localStorage = localStorage;
+            _authStateProvider = authStateProvider;
         }
 
         public async Task<AuthResponseDto> Login(UserForAuthenticationDto userForAuthentication)
