@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using SampleProject.Shared.Dtos.Authentication;
+using SampleProject.Shared.ViewModels;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -49,9 +50,9 @@ namespace SampleProject.Server.Controllers
         private List<Claim> GetClaims(IdentityUser user)
         {
             var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, user.Email)
-    };
+            {
+                new Claim(ClaimTypes.Name, user.Email)
+            };
 
             return claims;
         }
@@ -66,6 +67,16 @@ namespace SampleProject.Server.Controllers
                 signingCredentials: signingCredentials);
 
             return tokenOptions;
+        }
+
+        [HttpPost]
+        [Route(nameof(Register))]
+        public async Task<IActionResult> Register(RegisterVM model)
+        {
+            var user = new ApplicationUser { NormalizedUserName = model.Email, NormalizedEmail = model.Email, UserName = model.Email, Email = model.Email };
+            await _userManager.CreateAsync(user, model.Password);
+            //await _userManager.AddToRoleAsync(user, "user");
+            return StatusCode(201);
         }
     }
 }

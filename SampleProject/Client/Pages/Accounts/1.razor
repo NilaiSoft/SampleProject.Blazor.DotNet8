@@ -1,0 +1,50 @@
+﻿@page "/accounts/register"
+@using SampleProject.Shared.ViewModels;
+<h3>Register</h3>
+
+<EditForm Model="@registerVM" OnValidSubmit="SubmitForm" class="card card-body bg-light">
+    <DataAnnotationsValidator />
+    <div class="mb-3 col-xl-5">
+        <MyLabel TItem="RegisterVM" aspfor="@nameof(RegisterVM.FirstName)"></MyLabel>
+        <InputText id="@nameof(RegisterVM.FirstName)" @bind-Value="registerVM.FirstName" autofocus class="form-control">
+        </InputText>
+        <ValidationMessage For="@(() => registerVM.FirstName)" />
+    </div>
+    <div class="mb-3 col-xl-5">
+        <MyLabel TItem="RegisterVM" aspfor="@nameof(RegisterVM.LastName)"></MyLabel>
+        <InputText id="@nameof(RegisterVM.LastName)" @bind-Value="registerVM.LastName" class="form-control"></InputText>
+        <ValidationMessage For="@(() => registerVM.LastName)" />
+    </div>
+    <div class="mb-3 col-xl-5">
+        <MyLabel TItem="RegisterVM" aspfor="@nameof(RegisterVM.Email)"></MyLabel>
+        <InputText id="@nameof(RegisterVM.Email)" @bind-Value="registerVM.Email" class="form-control" dir="ltr">
+        </InputText>
+        <ValidationMessage For="@(() => registerVM.Email)" />
+    </div>
+    <div class="mb-3 col-xl-5">
+        <MyLabel TItem="RegisterVM" aspfor="@nameof(RegisterVM.Password)"></MyLabel>
+        <InputText id="@nameof(RegisterVM.Password)" @bind-Value="registerVM.Password" type="password"
+            class="form-control" dir="ltr"></InputText>
+        <ValidationMessage For="@(() => registerVM.Password)" />
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">ارسال</button>
+    </div>
+</EditForm>
+
+@code
+{
+    private RegisterVM registerVM = new();
+    private async Task SubmitForm()
+    {
+        var response = await _httpClient.PostAsJsonAsync("api/accounts/register", registerVM);
+        if (response.IsSuccessStatusCode)
+            _navigationManager.NavigateTo("accounts/login");
+        //var response = await _httpClient.PostAsJsonAsync("api/register", registerVM);
+    }
+}
+
+
+
+
