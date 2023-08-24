@@ -32,16 +32,16 @@ namespace SampleProject.Client.Services
             var content = JsonSerializer.Serialize(userForAuthentication);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
 
-            var authResult = await _client.PostAsync("api/accounts/Login", bodyContent);
-            var authContent = await authResult.Content.ReadAsStringAsync();
-            var result = JsonSerializer.Deserialize<AuthResponseDto>(authContent, _options);
+            var authRequest = await _client.PostAsync("api/accounts/Login", bodyContent);
+            var authContent = await authRequest.Content.ReadAsStringAsync();
+            var authResult = JsonSerializer.Deserialize<AuthResponseDto>(authContent, _options);
 
-            if (!authResult.IsSuccessStatusCode)
-                return result;
+            if (!authRequest.IsSuccessStatusCode)
+                return authResult;
 
-            await _localStorage.SetItemAsync("authToken", result.Token);
+            await _localStorage.SetItemAsync("authToken", authResult.Token);
             ((AuthStateProvider)_authStateProvider).NotifyUserAuthentication(userForAuthentication.Email);
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", authResult.Token);
 
             return new AuthResponseDto { IsAuthSuccessful = true };
         }
