@@ -74,9 +74,14 @@ namespace SampleProject.Server.Controllers
         public async Task<IActionResult> Register(RegisterVM model)
         {
             var user = new ApplicationUser { NormalizedUserName = model.Email, NormalizedEmail = model.Email, UserName = model.Email, Email = model.Email };
-            await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
             //await _userManager.AddToRoleAsync(user, "user");
-            return StatusCode(201);
+            if (result.Succeeded)
+            {
+                return StatusCode(201);
+            }
+
+            return BadRequest(result.Errors);
         }
     }
 }
