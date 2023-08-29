@@ -19,3 +19,5 @@ global using SampleProjects.Server;
 global using SampleProjects.Server.Services;
 global using System.Globalization;
 global using System.Reflection;
+global using Microsoft.Extensions.Caching.Memory;
+global using System.Collections;
