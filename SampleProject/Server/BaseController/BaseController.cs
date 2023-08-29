@@ -79,8 +79,7 @@ namespace SampleProject.Server.BaseController
         {
             var result = await _repository.DeleteAsync(x => x.Id == id);
 
-            var cacheKey = _cacheManager.GetCacheName($"{typeof(TEntity).Name.ToLower()}-List-index-");
-            _cacheManager.Remove(cacheKey);
+            _cacheManager.RemoveRangeByPrefixEntityName(typeof(TEntity).Name.ToLower());
 
             return Ok(result);
         }

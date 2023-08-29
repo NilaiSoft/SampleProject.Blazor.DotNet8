@@ -80,15 +80,15 @@ public class ProductController : BaseController<Product, ProductModel>
         return Ok(result);
     }
 
-    [HttpDelete($"{nameof(DeleteAsync)}/{{id}}")]
-    public override async Task<IActionResult> DeleteAsync(int id)
-    {
-        var result = await _productService.DeleteAsync(x => x.Id == id);
+    //[HttpDelete($"{nameof(DeleteAsync)}/{{id}}")]
+    //public override async Task<IActionResult> DeleteAsync(int id)
+    //{
+    //    var result = await _productService.DeleteAsync(x => x.Id == id);
 
-        var cacheKey = _cacheManager.GetCacheName($"{typeof(Product).Name.ToLower()}List-index-");
-        _cacheManager.Remove(cacheKey);
+    //    var cacheKey = _cacheManager.GetCacheName($"{typeof(Product).Name.ToLower()}List-index-");
+    //    _cacheManager.Remove(cacheKey);
 
-        return Ok(result);
-    }
+    //    return Ok(result);
+    //}
 }
 
