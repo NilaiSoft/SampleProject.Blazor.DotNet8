@@ -85,7 +85,7 @@ public class ProductController : BaseController<Product, ProductModel>
     {
         var result = await _productService.DeleteAsync(x => x.Id == id);
 
-        var cacheKey = _cacheManager.GetCacheName($"{(nameof(Product)).ToLower()}List-index-");
+        var cacheKey = _cacheManager.GetCacheName($"{typeof(Product).Name.ToLower()}List-index-");
         _cacheManager.Remove(cacheKey);
 
         return Ok(result);
