@@ -59,17 +59,6 @@ public class ProductController : BaseController<Product, ProductModel>
     }
 
     [HttpPost]
-    [Route(nameof(Create))]
-    public override async Task<IActionResult> CreateAsync(ProductModel entity)
-    {
-        var product = _mapper.Map<Product>(entity);
-
-        var result = await _productService.AddProductAsync(product);
-
-        return Ok(result);
-    }
-
-    [HttpPost]
     [Route(nameof(RelatedCreate))]
     public virtual async Task<IActionResult> RelatedCreate(IList<RelatedProductModel> entitys)
     {
@@ -79,16 +68,5 @@ public class ProductController : BaseController<Product, ProductModel>
 
         return Ok(result);
     }
-
-    //[HttpDelete($"{nameof(DeleteAsync)}/{{id}}")]
-    //public override async Task<IActionResult> DeleteAsync(int id)
-    //{
-    //    var result = await _productService.DeleteAsync(x => x.Id == id);
-
-    //    var cacheKey = _cacheManager.GetCacheName($"{typeof(Product).Name.ToLower()}List-index-");
-    //    _cacheManager.Remove(cacheKey);
-
-    //    return Ok(result);
-    //}
 }
 
