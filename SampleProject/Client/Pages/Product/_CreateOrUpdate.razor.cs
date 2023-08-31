@@ -66,5 +66,18 @@ namespace SampleProject.Client.Pages.Product
                 await grdRelatedProducts.ReloadServerData();
             }
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            bool? dialogResult = await _dialogService.ShowMessageBox("Delete Confirmation", "Deleting can not be undone!", yesText: "Delete!", noText: "Cancel", cancelText: "", new DialogOptions { FullWidth = true });
+            if (dialogResult ?? false)
+            {
+                var result = await _httpClient.DeleteAsync($"api/Product/DeleteRelatedProductAsync/{id}");
+                if (result.IsSuccessStatusCode)
+                {
+                    await grdRelatedProducts.ReloadServerData();
+                }
+            }
+        }
     }
 }

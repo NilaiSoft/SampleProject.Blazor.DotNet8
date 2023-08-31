@@ -34,6 +34,11 @@
                      Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
             <Columns>
                 <PropertyColumn Property="x => x.Product2.Name" />
+                <TemplateColumn>
+                    <CellTemplate>
+                        <MudIconButton Variant=Variant.Filled OnClick="@(() => DeleteAsync(@context.Item.Id))" Color="@Color.Default" Icon="@Icons.Material.Filled.Delete" />
+                    </CellTemplate>
+                </TemplateColumn>
             </Columns>
             <PagerContent>
                 <MudDataGridPager T="RelatedProductDto" RowsPerPageString="Elements per page"></MudDataGridPager>

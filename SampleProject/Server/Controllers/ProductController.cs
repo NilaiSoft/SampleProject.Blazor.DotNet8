@@ -76,5 +76,15 @@ public class ProductController : BaseController<Product, ProductModel>
 
         return Ok(result);
     }
+
+    [HttpDelete($"{nameof(DeleteRelatedProductAsync)}/{{id}}")]
+    public async Task<IActionResult> DeleteRelatedProductAsync(int id)
+    {
+        var result = await _relatedProductService.DeleteAsync(x => x.Id == id);
+
+        _cacheManager.RemoveRangeByPrefixEntityName(typeof(RelatedProduct).Name.ToLower());
+
+        return Ok(result);
+    }
 }
 
