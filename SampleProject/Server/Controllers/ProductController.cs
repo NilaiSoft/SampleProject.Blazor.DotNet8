@@ -1,4 +1,6 @@
-﻿namespace SampleProject.Server.Controllers;
+﻿using IdentityModel;
+
+namespace SampleProject.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -36,16 +38,20 @@ public class ProductController : BaseController<Product, ProductModel>
     [Route($"{nameof(RelatedProducts)}/{{productId}}/{{pageIndex}}/{{pageSize}}")]
     public virtual async Task<IActionResult> RelatedProducts(int productId = 0, int pageIndex = 0, int pageSize = int.MaxValue)
     {
-        var model = await _relatedProductService
-            .GetAllAsync(x => x.ProductId1 == productId
-            , x => new RelatedProduct
+        var model = await _cacheManager.GetAsync($"{typeof(RelatedProduct).Name.ToLower()}-{productId}-List-index-{pageIndex}-{pageSize}"
+            , async Task<IPagedList<RelatedProduct>> () =>
             {
-                ProductId1 = x.ProductId1,
-                ProductId2 = x.ProductId2,
-                Product2 = x.Product2,
-                Id = x.Id,
-                DisplayOrder = x.DisplayOrder
-            }, pageIndex, pageSize);
+                return await _relatedProductService.GetAllAsync(x => x.ProductId1 == productId
+                , x => new RelatedProduct
+                {
+                    ProductId1 = x.ProductId1,
+                    ProductId2 = x.ProductId2,
+                    Product2 = x.Product2,
+                    Id = x.Id,
+                    DisplayOrder = x.DisplayOrder
+                }, pageIndex, pageSize);
+            });
+
         return Ok(new Tuple<IPagedList<RelatedProduct>, int>(model, model.TotalCount));
     }
 
@@ -65,6 +71,8 @@ public class ProductController : BaseController<Product, ProductModel>
         var product = _mapper.Map<IList<RelatedProduct>>(entitys);
 
         var result = await _relatedProductService.AddRangeAndSaveChangesAsync(product);
+
+        _cacheManager.RemoveRangeByPrefixEntityName(typeof(RelatedProduct).Name.ToLower());
 
         return Ok(result);
     }
