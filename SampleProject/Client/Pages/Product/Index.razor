@@ -64,7 +64,7 @@ else
                         </MudCardHeader>
                         <MudCardContent>
                             <MudDataGrid T="RelatedProductDto"
-                                         RowClick="RowClick(context.Item.Id)"
+                                         @* RowClick="RowClick(context.Item.Id)" *@
                                          Hover=true ServerData="LoadRelatedProducts" EditMode="DataGridEditMode.Cell"
                                          SortMode="SortMode.Multiple"
                                          Bordered="true" Dense="true" EditTrigger="(DataGridEditTrigger.OnRowClick)">
