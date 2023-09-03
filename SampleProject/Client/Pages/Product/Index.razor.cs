@@ -128,6 +128,11 @@ namespace SampleProject.Client.Pages.Product
             return new EventCallback();
         }
 
+        private void RowClicked(DataGridRowClickEventArgs<ProductDto> args)
+        {
+            productId = args.Item.Id;
+        }
+
         private async Task<GridData<RelatedProductDto>> LoadRelatedProducts(GridState<RelatedProductDto> state)
         {
             _relatedProductDtos = await _httpClient.GetFromJsonAsync<Tuple<IList<RelatedProductDto>, int>>($"api/Product/RelatedProducts/{productId}/{state.Page}/{state.PageSize}");
