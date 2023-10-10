@@ -10,7 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+builder.Services.AddCors();
 builder.Services.BuildServiceProvider()
     .GetService<ApplicationDbContext>()
     .Database
@@ -61,6 +61,8 @@ builder.Services.AddControllers();
 
 
 var app = builder.Build();
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
