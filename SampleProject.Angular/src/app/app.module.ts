@@ -9,13 +9,13 @@ import { ProductListComponent } from './Products/product-list/product-list.compo
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ProductListComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    ProductListComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
