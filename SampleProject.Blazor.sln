@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Shared", "Sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject.Core", "SampleProject\SampleProject.Core\SampleProject.Core.csproj", "{285A3290-080F-4AEB-AFE1-49BD387C1F05}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "SampleProject.Angular", "SampleProject.Angular\SampleProject.Angular.esproj", "{5DABB366-597B-44AC-93E4-2AB490CD3FB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{285A3290-080F-4AEB-AFE1-49BD387C1F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{285A3290-080F-4AEB-AFE1-49BD387C1F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{285A3290-080F-4AEB-AFE1-49BD387C1F05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DABB366-597B-44AC-93E4-2AB490CD3FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DABB366-597B-44AC-93E4-2AB490CD3FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DABB366-597B-44AC-93E4-2AB490CD3FB0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5DABB366-597B-44AC-93E4-2AB490CD3FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DABB366-597B-44AC-93E4-2AB490CD3FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DABB366-597B-44AC-93E4-2AB490CD3FB0}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
