@@ -10,5 +10,6 @@
 
         public DbSet<Product> Products { get; set; }
         public DbSet<RelatedProduct> RelatedProducts { get; set; }
+        public DbSet<NavMenu> NavMenus { get; set; }
     }
 }

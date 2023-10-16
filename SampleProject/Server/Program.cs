@@ -22,6 +22,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRelatedProductService, RelatedProductService>();
+builder.Services.AddScoped<INavMenuService, NavMenuService>();
 builder.Services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
 builder.Services.AddScoped(typeof(ICacheManager<>), typeof(CacheManager<>));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
