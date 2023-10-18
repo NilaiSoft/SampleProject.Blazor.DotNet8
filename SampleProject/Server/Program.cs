@@ -20,12 +20,12 @@ builder.Services.BuildServiceProvider()
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
+builder.Services.AddScoped(typeof(ICacheManager<>), typeof(CacheManager<>));
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRelatedProductService, RelatedProductService>();
 builder.Services.AddScoped<INavMenuService, NavMenuService>();
-builder.Services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
-builder.Services.AddScoped(typeof(ICacheManager<>), typeof(CacheManager<>));
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddIdentityServer()
     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
