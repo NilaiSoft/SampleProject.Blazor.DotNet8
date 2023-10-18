@@ -31,7 +31,9 @@ namespace SampleProject.Server.Controllers
                 {
                     return await _navMenuService.GetAllAsync(x => true);
                 });
+
             var res = _mapper.Map<IList<NavMenuModel>>(model);
+
             return Ok(res);
         }
     }
