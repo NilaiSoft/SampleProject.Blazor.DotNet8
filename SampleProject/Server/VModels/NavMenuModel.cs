@@ -9,7 +9,7 @@ public class NavMenuModel : BaseModel
         IconComponent_Name = string.Empty;
         BadgeColor = string.Empty;
         BadgeText = string.Empty;
-        LinkProps_Fragment = string.Empty;
+        LinkProps = string.Empty;
         ParentId = new int();
     }
 
@@ -19,6 +19,6 @@ public class NavMenuModel : BaseModel
     public string IconComponent_Name { get; set; }
     public string BadgeColor { get; set; }
     public string BadgeText { get; set; }
-    public string LinkProps_Fragment { get; set; }
+    public string LinkProps { get; set; }
     public int ParentId { get; set; }
 }
