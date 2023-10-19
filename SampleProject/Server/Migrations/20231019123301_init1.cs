@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SampleProject.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class _00000000000000_CreateIdentitySchema : Migration
+    public partial class init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -85,6 +85,26 @@ namespace SampleProject.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Keys", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NavMenus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsTitle = table.Column<bool>(type: "bit", nullable: false),
+                    IconComponent_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BadgeColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BadgeText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LinkProps_Fragment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NavMenus", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,8 +192,8 @@ namespace SampleProject.Server.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -217,8 +237,8 @@ namespace SampleProject.Server.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -357,6 +377,9 @@ namespace SampleProject.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Keys");
+
+            migrationBuilder.DropTable(
+                name: "NavMenus");
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");
