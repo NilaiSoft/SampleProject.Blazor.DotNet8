@@ -34,6 +34,11 @@ namespace SampleProject.Server.Controllers
 
             var res = _mapper.Map<IList<NavMenuModel>>(model);
 
+            foreach (var item in res.Where(x => x.Id == 2))
+            {
+                item.Children.Add(new Children { Name = "Nozari", Url = "#" });
+            }
+
             return Ok(res);
         }
     }
