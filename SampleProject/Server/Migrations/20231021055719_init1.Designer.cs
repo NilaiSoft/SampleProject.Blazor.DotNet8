@@ -12,7 +12,7 @@ using SampleProject.Server.Data;
 namespace SampleProject.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231019123301_init1")]
+    [Migration("20231021055719_init1")]
     partial class init1
     {
         /// <inheritdoc />

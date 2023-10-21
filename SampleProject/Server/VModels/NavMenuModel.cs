@@ -11,9 +11,7 @@ public class NavMenuModel : BaseModel
         IconComponent = new();
         Badge = new();
         LinkProps = string.Empty;
-        var test = new List<Children>();
-        test.Add(new VModels.Children { Name = "Ehsan", Url = "#" });
-        Children = test;
+        Children = new List<NavMenuModel>();
     }
 
     public string Name { get; set; }
@@ -22,8 +20,10 @@ public class NavMenuModel : BaseModel
     public IconComponent IconComponent { get; set; }
     public Badge Badge { get; set; }
     public string LinkProps { get; set; }
-    public IList<Children> Children { get; set; }
+    public List<NavMenuModel> Children { get; set; }
     public bool Divider { get; set; }
+    public int? ParentId { get; set; }
+    public string Href { get; set; }
 }
 
 public class Children

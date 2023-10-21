@@ -48,10 +48,15 @@
         /// 
         /// </summary>
         public string LinkProps_Fragment { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Href { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
     }
 }
