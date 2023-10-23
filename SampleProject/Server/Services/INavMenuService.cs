@@ -5,5 +5,6 @@ namespace SampleProjects.Server.Services
 {
     public interface INavMenuService : IEntityRepository<NavMenu, NavMenuModel>
     {
+
     }
 }

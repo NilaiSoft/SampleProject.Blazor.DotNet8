@@ -23,45 +23,45 @@ namespace SampleProjects.Server.Services
             _dbSet = _context.Set<TEntity>();
         }
 
-        public async Task<int> AddAndSaveChangesAsync(TEntity entity)
+        public virtual async Task<int> AddAndSaveChangesAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity.Id;
         }
 
-        public async Task<int> AddRangeAndSaveChangesAsync(IList<TEntity> entitys)
+        public virtual async Task<int> AddRangeAndSaveChangesAsync(IList<TEntity> entitys)
         {
             await _dbSet.AddRangeAsync(entitys);
             await _context.SaveChangesAsync();
             return entitys.Count;
         }
 
-        public async Task<int> SaveChangesAsync()
+        public virtual async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<EntityEntry<TEntity>> AddAsync(TEntity item)
+        public virtual async Task<EntityEntry<TEntity>> AddAsync(TEntity item)
         {
             return await _dbSet.AddAsync(item);
         }
 
-        public async Task AddRangeAsync(IList<TEntity> items)
+        public virtual async Task AddRangeAsync(IList<TEntity> items)
         {
             await _dbSet.AddRangeAsync(items);
         }
 
-        public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression)
+        public virtual Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression)
         {
             return _dbSet.AnyAsync(expression);
         }
-        public Task<bool> AnyAsync()
+        public virtual Task<bool> AnyAsync()
         {
             return _dbSet.AnyAsync();
         }
 
-        public async Task<int> DeleteAsync(Expression<Func<TEntity, bool>> _pridicate)
+        public virtual async Task<int> DeleteAsync(Expression<Func<TEntity, bool>> _pridicate)
         {
             try
             {
@@ -91,28 +91,28 @@ namespace SampleProjects.Server.Services
             }
         }
 
-        public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> _pridicate)
+        public virtual async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> _pridicate)
         {
             return await _dbSet.FirstOrDefaultAsync(_pridicate);
         }
 
-        public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> _pridicate
+        public virtual async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> _pridicate
             , Expression<Func<TEntity, TEntity>> expression)
         {
             return await _dbSet.Where(_pridicate).Select(expression).FirstOrDefaultAsync();
         }
 
-        public async Task<TEntity?> FindAsync(int Id)
+        public virtual async Task<TEntity?> FindAsync(int Id)
         {
             return await _dbSet.FindAsync(Id);
         }
 
-        public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> _pridicate)
+        public virtual async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> _pridicate)
         {
             return await _dbSet.FirstOrDefaultAsync(_pridicate);
         }
 
-        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate)
+        public virtual async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate)
         {
             async Task<IList<TEntity>> getAllAsync()
             {
@@ -123,7 +123,7 @@ namespace SampleProjects.Server.Services
             return await getAllAsync();
         }
 
-        protected IQueryable<TEntity> AddDeletedFilter(IQueryable<TEntity> query, bool includeDeleted)
+        protected virtual IQueryable<TEntity> AddDeletedFilter(IQueryable<TEntity> query, bool includeDeleted)
         {
             if (includeDeleted)
                 return query;
@@ -134,7 +134,7 @@ namespace SampleProjects.Server.Services
             return query.OfType<ISoftDeletedEntity>().Where(entry => !entry.Deleted).OfType<TEntity>();
         }
 
-        public async Task<IPagedList<TEntity>> GetAllAsync(int pageIndex = 0, int pageSize = int.MaxValue)
+        public virtual async Task<IPagedList<TEntity>> GetAllAsync(int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = _dbSet.AsQueryable();
 
@@ -144,7 +144,7 @@ namespace SampleProjects.Server.Services
         }
 
 
-        public async Task<IPagedList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate, int pageIndex = 0, int pageSize = int.MaxValue)
+        public virtual async Task<IPagedList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> _pridicate, int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = _dbSet.Where(_pridicate).AsQueryable();
 
@@ -153,14 +153,14 @@ namespace SampleProjects.Server.Services
             return await entities.ToPagedListAsync(pageIndex, pageSize);
         }
 
-        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, TEntity>> expression)
+        public virtual async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, TEntity>> expression)
         {
             var query = _dbSet.Select(expression).AsQueryable();
 
             return await AddDeletedFilter(query, false).ToListAsync();
         }
 
-        public async Task<IList<TEntity>> GetAllAsync
+        public virtual async Task<IList<TEntity>> GetAllAsync
             (Expression<Func<TEntity, bool>> _pridicate, Expression<Func<TEntity, TEntity>> _selectList)
         {
             var query = _dbSet.Where(_pridicate).Select(_selectList).AsQueryable();
@@ -169,7 +169,7 @@ namespace SampleProjects.Server.Services
         }
 
 
-        public async Task<IPagedList<TEntity>> GetAllAsync
+        public virtual async Task<IPagedList<TEntity>> GetAllAsync
             (Expression<Func<TEntity, bool>> _pridicate
             , Expression<Func<TEntity, TEntity>> _selectList, int pageIndex = 0, int pageSize = int.MaxValue)
         {
@@ -188,7 +188,7 @@ namespace SampleProjects.Server.Services
         //}
         #endregion
 
-        public async Task<int> EditAsync(TEntity entity)
+        public virtual async Task<int> EditAsync(TEntity entity)
         {
             #region OtherMethod
             //_context.Entry<TEntity>(entity).State = EntityState.Modified;
@@ -198,14 +198,14 @@ namespace SampleProjects.Server.Services
             return 1;
         }
 
-        public async Task<int> EditAsync(Expression<Func<TEntity, TEntity>> predicate
+        public virtual async Task<int> EditAsync(Expression<Func<TEntity, TEntity>> predicate
         , Expression<Func<TEntity, TEntity>> entity)
         {
             _context.Entry(predicate).CurrentValues.SetValues(entity);
             return 1;
         }
 
-        public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> _pridicate, Expression<Func<TEntity, TEntity>> selectItem)
+        public virtual async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> _pridicate, Expression<Func<TEntity, TEntity>> selectItem)
         {
             return await _dbSet.Where(_pridicate).Select(selectItem).FirstOrDefaultAsync();
         }

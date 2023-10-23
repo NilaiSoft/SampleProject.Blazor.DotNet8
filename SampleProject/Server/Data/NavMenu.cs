@@ -58,5 +58,15 @@
         /// 
         /// </summary>
         public int? ParentId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? Ordering { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool? IsActive { get; set; }
     }
 }

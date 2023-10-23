@@ -24,6 +24,8 @@ public class NavMenuModel : BaseModel
     public bool Divider { get; set; }
     public int? ParentId { get; set; }
     public string Href { get; set; }
+    public int? Ordering { get; set; }
+    public bool? IsActive { get; set; }
 }
 
 public class Children
