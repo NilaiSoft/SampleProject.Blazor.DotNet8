@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using SampleProject.Server.Factory;
 using SampleProject.Server.Services;
 using System.Text;
 
@@ -25,6 +26,7 @@ builder.Services.AddScoped(typeof(ICacheManager<>), typeof(CacheManager<>));
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IRelatedProductService, RelatedProductService>();
 builder.Services.AddScoped<INavMenuService, NavMenuService>();
+builder.Services.AddScoped<INavMenuModelFactory, NavMenuModelFactory>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddIdentityServer()
