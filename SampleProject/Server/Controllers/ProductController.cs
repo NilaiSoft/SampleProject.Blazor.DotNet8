@@ -4,7 +4,7 @@ namespace SampleProject.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class ProductController : BaseController<Product, ProductModel>
 {
     private readonly IProductService _productService;
@@ -20,6 +20,29 @@ public class ProductController : BaseController<Product, ProductModel>
         _productService = productService;
         _relatedProductService = relatedProductService;
         _mapper = mapper;
+    }
+
+    [HttpGet]
+    [Route($"{nameof(Index)}/{{pageIndex}}/{{pageSize}}")]
+    public override async Task<IActionResult> Index(int pageIndex = 0, int pageSize = int.MaxValue)
+    {
+        var result = _mapper.Map<IList<ProductModel>>(await _productService.GetAllAsync(pageIndex, pageSize == 0 ? 10 : pageSize));
+
+        result = result.OrderBy(x => x.Name).ToList();
+        foreach (var item in result)
+        {
+            item.Position = result.IndexOf(item) + 1;
+
+        }
+
+        var model = new PageOptions<ProductModel>
+        {
+            Models = result,
+            PageSize = 15,
+            PageIndex = 0
+        };
+
+        return Ok(model);
     }
 
     [HttpGet]
