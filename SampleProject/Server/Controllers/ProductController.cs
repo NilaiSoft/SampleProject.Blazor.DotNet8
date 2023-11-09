@@ -1,4 +1,4 @@
-﻿using IdentityModel;
+using IdentityModel;
 
 namespace SampleProject.Server.Controllers;
 
